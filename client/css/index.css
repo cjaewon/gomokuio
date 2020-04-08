@@ -67,3 +67,33 @@
 .setting > button:hover {
   background-color: #3d84f5;
 }
+
+.loader {
+  display: none; /* change flex when button click */
+  flex-direction: column;
+  align-items: center;
+}
+
+.loding-circle { 
+  border: 0.5rem solid #f3f3f3;
+  border-top: 0.5rem solid rgba(0, 0, 0, .75);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  animation: loading 1.5s linear infinite;
+}
+
+@keyframes loading {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.game {
+  width: 720px;
+  height: 720px;
+}
+
+.game > #canvas {
+  width: 720px;
+  height: 720px;
+}

@@ -10,5 +10,12 @@ export default function event(ws: WebSocket, socketData: any) {
     case 'user_data':
       window.db.user = new User(data.user.id, data.user.username);
       break;
-    }
+    case 'game_start':
+      alert('game_start');
+      console.log(data)
+      document.getElementById('start-menu')!.style.display = 'none';
+      document.getElementById('loader')!.style.display = 'none';
+      break;
+
+  }
 };

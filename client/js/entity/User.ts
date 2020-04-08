@@ -11,7 +11,7 @@ class User {
     this.username = username;
     this.score = 0;
     this.roomId = null;
-  } 
+  };
 };
 
 export default User;

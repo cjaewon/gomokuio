@@ -13,7 +13,7 @@ class Room {
     this.player1 = player1;
     this.player2 = player2;
 
-    this.map = new Array(new Array(15), new Array(15));
+    this.map = new Array(15).fill(new Array(15).fill(0));
   };
 };
 

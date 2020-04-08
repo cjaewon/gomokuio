@@ -6,7 +6,7 @@
   <title>Document</title>
 </head>
 <body>
-  <section class="start-menu">
+  <section id="start-menu" class="start-menu">
     <h1 class="title">오목 io</h1>
     <p class="description">온라인에서 오목을 할 수 있는 웹 게임입니다.</p>
     
@@ -14,8 +14,17 @@
       <input id="username-input" type="text" placeholder="유저 이름" maxlength="7" />
       <button type="submit">플레이</button>
     </form>
-  </section>
 
+    <div id="loader" class="loader">
+      <div class="loding-circle"></div>
+      <h3>매칭을 할 다른 유저를 기다리는 중 입니다.</h3>
+    </div>
+  </section>
+  <section class="game">
+    <canvas id="canvas">
+      현재 브라우저는 캔버스를 지원하지 않아요. 다른 브라우저를 사용해주세요. (크롬, 사파리, 웨일, MS 엣지)
+    </canvas>
+  </section>
   <script src="/bundle.js"></script>
 </body>
 </html>

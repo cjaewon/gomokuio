@@ -3,6 +3,8 @@ import event from './event';
 
 import Room from './entity/Room';
 import User from './entity/User';
+import { bind } from './lib/utill';
+import Canvas from './lib/canvas';
 
 
 let ws = new WebSocket(`ws://${location.host}`);
@@ -13,14 +15,15 @@ window.db = {
 
 document.getElementById('setting')!.addEventListener('submit', e => {
   e.preventDefault();
-  const body = { 
-    name: 'join',
-    data: {
-      username: (document.getElementById('username-input') as HTMLInputElement).value,
-    },
+  
+  const data = { 
+    username: (document.getElementById('username-input') as HTMLInputElement).value,
   };
 
-  ws.send(JSON.stringify(body));
+  document.getElementById('setting')!.style.display = 'none';
+  document.getElementById('loader')!.style.display = 'flex';
+
+  ws.send(bind('join', data));
 });
 
 

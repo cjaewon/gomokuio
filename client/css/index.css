@@ -89,11 +89,10 @@
 }
 
 .game {
-  width: 720px;
-  height: 720px;
-}
+  width: 760px;
 
-.game > #canvas {
-  width: 720px;
-  height: 720px;
+  margin-right: auto;
+  margin-left: auto;
+
+  display: none;
 }

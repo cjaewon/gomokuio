@@ -7,6 +7,7 @@ class Room {
   player2: User | null;
 
   map: number[][];
+  turn: 'player1' | 'player2';
 
   constructor(id: string, player1: User | null, player2: User | null) {
     this.id = id;
@@ -14,6 +15,7 @@ class Room {
     this.player2 = player2;
 
     this.map = new Array(15).fill(new Array(15).fill(0));
+    this.turn = 'player1';
   };
 };
 

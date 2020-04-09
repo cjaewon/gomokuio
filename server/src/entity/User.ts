@@ -6,9 +6,8 @@ class User {
   score: Number;
 
   roomId: string | null;
-
+  
   constructor(id: string, username: string) {
-
     this.id = id;
     this.username = username;
     this.score = 0;

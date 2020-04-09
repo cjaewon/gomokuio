@@ -4,14 +4,16 @@ import event from './event';
 import Room from './entity/Room';
 import User from './entity/User';
 import { bind } from './lib/utill';
-import Canvas from './lib/canvas';
 
 
 let ws = new WebSocket(`ws://${location.host}`);
+
+window.ws = ws;
 window.db = {
   room: null,
   user: null,
 };
+
 
 document.getElementById('setting')!.addEventListener('submit', e => {
   e.preventDefault();
@@ -39,6 +41,7 @@ interface DB {
 
 declare global {
   interface Window {
+    ws: WebSocket;
     db: DB;
   }
 }

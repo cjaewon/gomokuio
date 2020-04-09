@@ -1,5 +1,6 @@
 import User from "./User";
 import { throws } from "assert";
+import Canvas from "../lib/Canvas";
 
 class Room {
   id: string; // socket id
@@ -20,6 +21,8 @@ class Room {
     this.map = Array(15).fill(0).map(() => Array(15).fill(0));
     this.turn = 'player1';
   };
+
+
 };
 
 export default Room;

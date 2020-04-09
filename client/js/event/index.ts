@@ -1,8 +1,8 @@
 import Room from "../entity/Room";
 import User from "../entity/User";
-import Game from "../lib/Game";
+import Canvas from "../lib/Canvas";
 
-const game = new Game();
+const canvas = new Canvas();
 
 export default function event(ws: WebSocket, socketData: any) {
   const response = JSON.parse(socketData);
@@ -21,14 +21,16 @@ export default function event(ws: WebSocket, socketData: any) {
       document.getElementById('start-menu')!.style.display = 'none';
       document.getElementById('loader')!.style.display = 'none';
       
-      game.start();
+      canvas.init();
       break;
     }
     case 'click': {
       if (!window.db.room) return;
 
       window.db.room.map[data.x][data.y] = data.color;
-      window.db.room.turn = window.db.room.turn === 'player1' ? 'player2' : 'player1';
+      window.db.room.turn = data.turn;
+      
+      canvas.draw();
     }
   }
 };

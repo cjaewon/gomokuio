@@ -35,9 +35,7 @@ class Canvas {
   }
 
   draw() {
-    if (!window.db.room) throw new Error('Cant found room');
-    else if (!window.db.user) throw new Error('Cant found user');
-
+    if (!window.db.room || !window.db.user) return;
     this.ctx.clearRect(0, 0, this.width, this.height);
 
     const scaleX = this.width / 15;
@@ -104,12 +102,12 @@ class Canvas {
     this.canvas.addEventListener('click', () => {
       if (!window.db.room || !window.db.user) return;
       if (window.db.room.map[this.x][this.y] !== 0) return; // 이미 값이 있을 때
-      if (window.db.room[window.db.room.turn].id === window.db.user.id) { // 자기 턴일 때
-        window.ws.send(bind('click', {
-          x: this.x,
-          y: this.y,
-        }));
-      }
+      if (window.db.room[window.db.room.turn].id !== window.db.user.id) return; // 자기 턴이 아닐 떄
+      
+      window.ws.send(bind('click', {
+        x: this.x,
+        y: this.y,
+      }));
     });
   }
 };

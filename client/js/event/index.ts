@@ -31,6 +31,11 @@ export default function event(ws: WebSocket, socketData: any) {
       window.db.room.turn = data.turn;
       
       canvas.draw();
+      break;
+    }
+    case 'user_out': {
+
+      break;
     }
   }
 };

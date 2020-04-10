@@ -23,6 +23,11 @@ global.db = {
   matchQueue: [],
 };
 
+app.use((req, res, next) => {
+  if (req.path.match(/\/js|\/css/g)) return; // css 또는 js 폴더에 들어올 때 소스코드 유출을 방지하기 위함
+  next();
+});
+
 app.use(express.static(__dirname + '/../../client')); // 배포때는 캐싱 maxAge 
 
 wss.on('connection', (ws) => {

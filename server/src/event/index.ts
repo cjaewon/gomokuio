@@ -62,7 +62,22 @@ export default function event(ws: ws, id: string, socketData: any) {
 
 export const close = (id: string) => {
   // TODO: 유저 한명이 나가면 나갔다고 표시하고 10초 뒤에 방 제거
+  const roomId = global.db.users[id].roomId;
 
+  if (roomId !== null) {
+    const room = global.db.rooms[roomId];
+    const body = { userId: id };
+
+    if (room.player1 && room.player1.id !== id) {
+      global.ws[room.player1.id].send(bind('user_out', body));
+    } else if (room.player2) {
+      global.ws[room.player2.id].send(bind('user_out', body));
+    }
+
+    delete global.db.rooms[roomId];
+  }
+
+  
   delete global.db.users[id];
   delete global.ws[id];
 };

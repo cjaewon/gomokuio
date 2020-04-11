@@ -8,9 +8,9 @@
     "run": "webpack -w && ts-node server/src/server.ts",
     "webpack": "webpack -w",
     "typescript": "ts-node server/src/server.ts",
-    "build": "webpack --mode=production && tsc",
+    "build": "webpack&& tsc",
     "build:typescript": "tsc",
-    "build:webpack": "webpack --mode=production"
+    "build:webpack": "webpack"
   },
   "repository": {
     "type": "git",

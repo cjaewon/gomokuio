@@ -62,7 +62,7 @@ class Canvas {
         this.ctx.lineWidth = 3;
         this.ctx.strokeStyle = 'black';
   
-        this.ctx.arc(i * scaleX, j * scaleY, scaleX / 3, 0, 2 * Math.PI);
+        this.ctx.arc(j * scaleX, i * scaleY, scaleX / 3, 0, 2 * Math.PI);
         this.ctx.fill();
         this.ctx.stroke();
         this.ctx.closePath();
@@ -78,7 +78,7 @@ class Canvas {
       this.ctx.lineWidth = 3;
       this.ctx.strokeStyle = 'black';
 
-      this.ctx.arc(this.x * scaleX, this.y * scaleY, scaleX / 3, 0, 2 * Math.PI);
+      this.ctx.arc(this.y * scaleX, this.x * scaleY, scaleX / 3, 0, 2 * Math.PI);
       this.ctx.fill();
       this.ctx.stroke();
       this.ctx.closePath();
@@ -93,8 +93,8 @@ class Canvas {
       const mouseX = e.clientX - this.canvas.offsetLeft;
       const mouseY = e.clientY - this.canvas.offsetTop;
 
-      this.x = Math.abs(Math.round(mouseX / scaleX)); // 배열은 x,y가 다르기 때문에 x 좌표를 y에 대입
-      this.y = Math.abs(Math.round(mouseY / scaleY));
+      this.y = Math.abs(Math.round(mouseX / scaleX)); // 배열은 x,y가 다르기 때문에 x 좌표를 y에 대입
+      this.x = Math.abs(Math.round(mouseY / scaleY));
       
       console.log(this.x, this.y);
 

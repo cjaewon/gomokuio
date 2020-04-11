@@ -3,7 +3,7 @@ const path = require('path');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin'); // heroku 배포 때 파일 대소문자 자동 변환 문제 때문에 사용
 
 module.exports = {
-  mode: 'development', /* production */
+  mode: 'production', /* production */
   // devtool: 'source-map',
 
   entry: {

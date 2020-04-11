@@ -24,3 +24,68 @@ export const matching = (user: User): Room | undefined => {
   
   return;
 };
+
+export const checkGameEnd = (roomId: string): Number | undefined => {
+  const room = global.db.rooms[roomId];
+
+  // 세로 체크 -> |
+  let player1 = 0; // 1 흑
+  let player2 = 0; // 2 백
+
+  for(let i = 0; i < 15; i++) {
+    if (player1 >= 5) return 1;
+    else if (player1 >= 5) return 2;
+
+    player1 = 0;
+    player2 = 0;
+
+    for (let j = 0; j < 15; j++) {
+      if(room.map[j][i] == 1) player1++;
+      else if (room.map[j][i] == 2) player2++;
+    }
+  }
+
+  // 가로체크 -> -
+  for(let i = 0; i < 15; i++) {
+    if (player1 >= 5) return 1;
+    else if (player1 >= 5) return 2;
+
+    player1 = 0;
+    player2 = 0;
+
+    for (let j = 0; j < 15; j++) {
+      if(room.map[j][i] == 1) player1++;
+      else if (room.map[j][i] == 2) player2++;
+    }
+  }
+
+  let i = 0;
+  let j = 0;
+
+  player1 = 0;
+  player2 = 0;
+  // 대각선 오른쪽에서 왼쪽으로 체크 -> /
+
+  while (true) {
+    if (room.map[i][j] == 1)  player1++;
+    else if (room.map[i][j] == 1) player2++
+    
+    if (player1 >= 5) return 1;
+    else if(player2 >= 5) return 2;
+    // console.log(i, j)
+
+    if (j <= 0) {
+      j = i + 1;
+      i = 0;
+
+      player1 = 0;
+      player2 = 0;
+
+      if (j >= 15) break;
+      continue;
+    }
+
+    i += 1;
+    j -= 1;
+  }
+};

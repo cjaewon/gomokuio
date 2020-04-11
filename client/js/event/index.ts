@@ -34,7 +34,10 @@ export default function event(ws: WebSocket, socketData: any) {
       break;
     }
     case 'user_out': {
+      alert('상대 유저가 나갔습니다.\n 10초 뒤 자동으로 메인으로 이동합니다.');
+      setTimeout(() => {
 
+      }, 1000 * 10);
       break;
     }
   }

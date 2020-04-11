@@ -54,6 +54,15 @@ export default function event(ws: ws, id: string, socketData: any) {
 
       global.ws[room.player1!.id].send(bind('click', body));
       global.ws[room.player2!.id].send(bind('click', body));
+
+      const winorlose = system.checkGameEnd(room.id);
+
+      if (winorlose !== undefined) {
+        console.log('end');
+
+        // global.ws[room.player1!.id].send(bind('game_end', body));
+        // global.ws[room.player2!.id].send(bind('game_end', body));
+      }
     }
   }
 };
@@ -76,7 +85,6 @@ export const close = (id: string) => {
 
     delete global.db.rooms[roomId];
   }
-
   
   delete global.db.users[id];
   delete global.ws[id];

@@ -93,8 +93,10 @@ class Canvas {
       const mouseX = e.clientX - this.canvas.offsetLeft;
       const mouseY = e.clientY - this.canvas.offsetTop;
 
-      this.x = Math.abs(Math.round(mouseX / scaleX));
+      this.x = Math.abs(Math.round(mouseX / scaleX)); // 배열은 x,y가 다르기 때문에 x 좌표를 y에 대입
       this.y = Math.abs(Math.round(mouseY / scaleY));
+      
+      console.log(this.x, this.y);
 
       this.draw();
     }, false);
@@ -104,6 +106,8 @@ class Canvas {
       if (window.db.room.map[this.x][this.y] !== 0) return; // 이미 값이 있을 때
       if (window.db.room[window.db.room.turn].id !== window.db.user.id) return; // 자기 턴이 아닐 떄
       
+      console.log(this.x, this.y)
+
       window.ws.send(bind('click', {
         x: this.x,
         y: this.y,

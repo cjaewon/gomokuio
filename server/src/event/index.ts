@@ -38,7 +38,7 @@ export default function event(ws: ws, id: string, socketData: any) {
       const room = global.db.rooms[player.roomId!];
 
       if (room[room.turn]!.id !== player.id) return; // 자신의 턴이 아닐 때 요청
-      if (data.x > 15 || data.y > 15) return; // 범위를 넘을 때
+      if (data.y > 15 || data.x > 15) return; // 범위를 넘을 때
       if (room.map[data.x][data.y] !== 0) return; // 이미 값이 있을 때
 
       room.map[data.x][data.y] = room.turn === 'player1' ? 1 : 2 ; // 1 검은 돌 2 흰 돌
@@ -55,9 +55,9 @@ export default function event(ws: ws, id: string, socketData: any) {
       global.ws[room.player1!.id].send(bind('click', body));
       global.ws[room.player2!.id].send(bind('click', body));
 
-      const winorlose = system.checkGameEnd(room.id);
-
-      if (winorlose !== undefined) {
+      const win = system.checkGameEnd(room.id);
+      console.log(win);
+      if (win !== undefined) {
         console.log('end');
 
         // global.ws[room.player1!.id].send(bind('game_end', body));
@@ -71,21 +71,25 @@ export default function event(ws: ws, id: string, socketData: any) {
 
 export const close = (id: string) => {
   // TODO: 유저 한명이 나가면 나갔다고 표시하고 10초 뒤에 방 제거
-  const roomId = global.db.users[id].roomId;
+  try { // roomId가 없을 때 나는 오류로 서버 종료 방지 및 다른 취약점으로 서버 종료 방지
+    const roomId = global.db.users[id].roomId;
 
-  if (roomId !== null) {
-    const room = global.db.rooms[roomId];
-    const body = { userId: id };
+    if (roomId !== null) {
+      const room = global.db.rooms[roomId];
+      const body = { userId: id };
+  console.log(room, 152);
+      if (room.player1 && room.player1.id !== id) {
+        global.ws[room.player1.id].send(bind('user_out', body));
+      } else if (room.player2) {
+        global.ws[room.player2.id].send(bind('user_out', body));
+      }
 
-    if (room.player1 && room.player1.id !== id) {
-      global.ws[room.player1.id].send(bind('user_out', body));
-    } else if (room.player2) {
-      global.ws[room.player2.id].send(bind('user_out', body));
+      delete global.db.rooms[roomId];
     }
-
-    delete global.db.rooms[roomId];
+    
+    delete global.db.users[id];
+    delete global.ws[id];
+  } catch(e) {
+    console.error(e);
   }
-  
-  delete global.db.users[id];
-  delete global.ws[id];
 };

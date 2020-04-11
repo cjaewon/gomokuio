@@ -37,6 +37,7 @@ export default function event(ws: WebSocket, socketData: any) {
       alert('상대 유저가 나갔습니다.\n 10초 뒤 자동으로 메인으로 이동합니다.');
       setTimeout(() => {
         document.getElementById('start-menu')!.style.display = 'block';
+        document.getElementById('setting')!.style.display = 'block';
         document.getElementById('loader')!.style.display = 'none';
 
         canvas.show(false);
@@ -58,6 +59,7 @@ export default function event(ws: WebSocket, socketData: any) {
 
       setTimeout(() => {
         document.getElementById('start-menu')!.style.display = 'block';
+        document.getElementById('setting')!.style.display = 'block';
         document.getElementById('loader')!.style.display = 'none';
 
         window.db.room = null;

@@ -5,7 +5,8 @@ class Room {
         this.id = id;
         this.player1 = player1;
         this.player2 = player2;
-        this.map = new Array(new Array(15), new Array(15));
+        this.map = Array(15).fill(0).map(() => Array(15).fill(0));
+        this.turn = 'player1';
     }
     ;
 }

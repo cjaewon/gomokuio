@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node ./server/dist/server.js",
     "run": "webpack -w && ts-node server/src/server.ts",
     "webpack": "webpack -w",
     "typescript": "ts-node server/src/server.ts",

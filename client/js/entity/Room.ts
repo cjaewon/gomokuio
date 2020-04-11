@@ -1,6 +1,4 @@
 import User from "./User";
-import { throws } from "assert";
-import Canvas from "../lib/Canvas";
 
 class Room {
   id: string; // socket id

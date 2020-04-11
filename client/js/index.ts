@@ -6,7 +6,7 @@ import User from './entity/User';
 import { bind } from './lib/utill';
 
 
-let ws = new WebSocket(`ws://${location.host}`);
+let ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}`);
 
 window.ws = ws;
 window.db = {

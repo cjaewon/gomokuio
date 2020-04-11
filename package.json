@@ -8,7 +8,6 @@
     "run": "webpack -w && ts-node server/src/server.ts",
     "webpack": "webpack -w",
     "typescript": "ts-node server/src/server.ts",
-    "build": "webpack --mode=production && tsc",
     "build:typescript": "tsc",
     "build:webpack": "webpack --mode=production"
   },

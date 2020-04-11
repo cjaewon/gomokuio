@@ -49,5 +49,20 @@ export const checkGameEnd = (roomId: string): Number | undefined => {
     }
   }
 
-  console.log(player1, player2);
+  for (let i = 0; i < 15; i++) {
+    player1 = player2 = 0;
+
+    for (let j = 0; j < 15; j++) {
+      if (room.map[i][j] === 1) {
+        player2 = 0;
+        player1 += 1;
+      } else if (room.map[j][i] === 2) {
+        player1 = 0;
+        player2 += 1;
+      }
+
+      if (player1 >= 5) return 1;
+      else if (player2 >= 5) return 2;
+    }
+  }
 };

@@ -71,8 +71,8 @@ exports.default = event;
 exports.close = (id) => {
     // TODO: 유저 한명이 나가면 나갔다고 표시하고 10초 뒤에 방 제거
     const roomId = global.db.users[id].roomId;
-    if (!roomId)
-        return;
+    if (!roomId) return;
+    
     try { // 취약점으로 서버 종료 방지
         if (roomId !== null) {
             const room = global.db.rooms[roomId];

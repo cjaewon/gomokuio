@@ -7,14 +7,12 @@ import { bind } from '../lib/utill';
 export default function event(ws: ws, id: string, socketData: any) {
   const response = JSON.parse(socketData);
 
-  const name = response.name;
+  const name = response.name as string;
   const data = response.data;
 
   switch (name) {
     case 'join': {
-      if ((data.username as string).length > 7) return;
-
-      const user = new User(id, data.username);
+      const user = new User(id, (data.username as string).substring(0, 7));
       global.db.users[id] = user;
 
       ws.send(bind('user_data', { user }));
@@ -22,16 +20,11 @@ export default function event(ws: ws, id: string, socketData: any) {
       const room = system.matching(user);
 
       if (!room) return;
-      if (!room.player1 || !room.player2) return;
-
       global.db.rooms[room.id] = room;
  
       try {
-        global.ws[room.player1.id].send(bind('game_start', { room }));
-        global.ws[room.player2.id].send(bind('game_start', { room }));
-      } catch(e) {
-        console.error(e);
-      }
+        room.sendAll('game_start', { room });
+      } catch(e) { console.error(e); }
     }
     case 'click': {
       const player = global.db.users[id];
@@ -43,24 +36,20 @@ export default function event(ws: ws, id: string, socketData: any) {
 
       room.map[data.x][data.y] = room.turn === 'player1' ? 1 : 2 ; // 1 검은 돌 2 흰 돌
       room.turn = room.turn === 'player1' ? 'player2' : 'player1';
-      
-      const body = {
-        x: data.x,
-        y: data.y,
 
-        color: room.map[data.x][data.y],
-        turn: room.turn,
-      };
+      try {
+        room.sendAll('click', {
+          x: data.x,
+          y: data.y,
+  
+          color: room.map[data.x][data.y],
+          turn: room.turn,
+        });
+      } catch (e) { console.error(e); }
 
-      global.ws[room.player1!.id].send(bind('click', body));
-      global.ws[room.player2!.id].send(bind('click', body));
-
-      const win = system.checkGameEnd(room.id);
+      const win = room.checkWin();
       if (win) {
-
-        global.ws[room.player1!.id].send(bind('game_end', { win }));
-        global.ws[room.player2!.id].send(bind('game_end', { win }));
-
+        room.sendAll('game_end', { win });
         delete global.db.rooms[room.player1!.roomId!];
       }
     }
@@ -71,27 +60,23 @@ export default function event(ws: ws, id: string, socketData: any) {
 
 export const close = (id: string) => {
   // TODO: 유저 한명이 나가면 나갔다고 표시하고 10초 뒤에 방 제거
-  const roomId = global.db.users[id].roomId;
-
-  if (!roomId) return;
+  const roomId = global.db.users[id] ? global.db.users[id].roomId : null;
+  
   try { // 취약점으로 서버 종료 방지
-
-    if (roomId !== null) {
+    if (roomId !== null && global.db.rooms[roomId]) {
       const room = global.db.rooms[roomId];
       const body = { userId: id };
 
-      if (room.player1 && room.player1.id !== id) {
-        global.ws[room.player1.id].send(bind('user_out', body));
-      } else if (room.player2) {
-        global.ws[room.player2.id].send(bind('user_out', body));
-      }
-
+      if (room.player1 && room.player1.id !== id)
+        room.player1!.send('user_out', body);
+      else if (room.player2)
+        room.player2!.send('user_out', body);
+      
       delete global.db.rooms[roomId];
     }
     
-    delete global.db.users[id];
+    if (global.db.users[id])  delete global.db.users[id];
+
     delete global.ws[id];
-  } catch(e) {
-    console.error(e);
-  }
+  } catch(e) { console.error(e); }
 };

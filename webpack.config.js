@@ -9,7 +9,7 @@ module.exports = {
   entry: {
     core: [
       '@babel/polyfill',
-      './client/js/index.ts', 
+      './client/ts/index.ts', 
     ],
   },
 

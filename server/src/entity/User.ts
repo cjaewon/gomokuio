@@ -1,5 +1,7 @@
 import ws from 'ws';
 
+import { bind } from '../lib/utill';
+
 class User {
   id: string; // socket id
   username: string;
@@ -12,7 +14,11 @@ class User {
     this.username = username;
     this.score = 0;
     this.roomId = null;
-  } 
+  }
+
+  send(name: string, body: any) {
+    global.ws[this.id].send(bind(name, body));
+  }
 };
 
 export default User;

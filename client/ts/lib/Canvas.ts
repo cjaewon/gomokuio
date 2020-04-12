@@ -10,6 +10,7 @@ class Canvas {
   x: number;
   y: number;
 
+  
   constructor() {
     this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
 
@@ -31,7 +32,7 @@ class Canvas {
   }
 
   show(isDisplay: boolean) {
-    document.getElementById('game')!.style.display = isDisplay ? 'block' : 'none';
+    document.getElementById('game')!.style.display = isDisplay ? 'flex' : 'none';
   }
 
   draw() {

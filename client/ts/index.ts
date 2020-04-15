@@ -1,6 +1,5 @@
 import '../css/index.css';
 import event from './event';
-
 import Room from './entity/Room';
 import User from './entity/User';
 import { bind } from './lib/utill';
@@ -17,15 +16,15 @@ window.db = {
 
 document.getElementById('setting')!.addEventListener('submit', e => {
   e.preventDefault();
-  
-  const data = { 
-    username: (document.getElementById('username-input') as HTMLInputElement).value,
-  };
 
   document.getElementById('setting')!.style.display = 'none';
   document.getElementById('loader')!.style.display = 'flex';
+  
+  const body = { 
+    username: (document.getElementById('username-input') as HTMLInputElement).value,
+  };
 
-  ws.send(bind('join', data));
+  ws.send(bind('join', body));
 });
 
 

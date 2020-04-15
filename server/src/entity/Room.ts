@@ -20,10 +20,8 @@ class Room {
   };
 
   sendAll(name: string, body: any) {
-    if (!this.player1 && !this.player2) throw new Error('player1 또는 player2를 찾을 수 없습니다.');
-
-    global.ws[this.player1!.id].send(bind(name, body));
-    global.ws[this.player2!.id].send(bind(name, body));
+    this.player1!.send(name, body);
+    this.player2!.send(name, body);
   }
 
   checkWin() {
@@ -129,6 +127,17 @@ class Room {
     //   i--;
     //   j++;
     // }
+  }
+
+  toData() {
+    const { player1, player2, ...data } = this;
+    if (!player1 || !player2) return;
+
+    return {
+      player1: player1.toData(),
+      player2: player2.toData(),
+      ...data,
+    };
   }
 };
 

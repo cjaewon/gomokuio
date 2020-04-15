@@ -43,8 +43,7 @@ export default function event(ws: WebSocket, socketData: any) {
         canvas.show(false);
 
         window.db.room = null;
-        window.db.user = null;
-
+        window.db.user!.roomId = '';
       }, 5000);
       break;
     }
@@ -63,7 +62,7 @@ export default function event(ws: WebSocket, socketData: any) {
         document.getElementById('loader')!.style.display = 'none';
 
         window.db.room = null;
-        window.db.user = null;
+        window.db.user!.roomId = '';
 
         canvas.show(false);
       }, 5000);

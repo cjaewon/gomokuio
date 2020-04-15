@@ -70,7 +70,6 @@ class Canvas {
       }
     }
 
-    for (let i = 0; i < 4; i++) this.ctx.strokeRect(1, 1, this.width - 2, this.height - 2); // 테두리 부분을 진하게 하기 위함
 
     if (window.db.room[window.db.room.turn].id === window.db.user.id) { // 자기 턴 일 때
       this.ctx.beginPath();
@@ -84,6 +83,8 @@ class Canvas {
       this.ctx.stroke();
       this.ctx.closePath();
     }
+
+    for (let i = 0; i < 4; i++) this.ctx.strokeRect(1, 1, this.width - 2, this.height - 2); // 테두리 부분을 진하게 하기 위함
   }
 
   catchEvent() {
@@ -107,8 +108,6 @@ class Canvas {
       if (window.db.room.map[this.x][this.y] !== 0) return; // 이미 값이 있을 때
       if (window.db.room[window.db.room.turn].id !== window.db.user.id) return; // 자기 턴이 아닐 떄
       
-      console.log(this.x, this.y)
-
       window.ws.send(bind('click', {
         x: this.x,
         y: this.y,

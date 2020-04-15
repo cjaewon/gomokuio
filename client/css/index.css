@@ -95,5 +95,8 @@
   margin-left: auto;
 
   display: flex;
-  
+}
+
+.info {
+  width: 6rem;
 }

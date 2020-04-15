@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "tsc && node ./server/dist/server.js",
-    "run": "webpack -w && ts-node server/src/server.ts",
+    "start": "node ./server/dist/server.js",
+    "dev": "tsc && node ./server/dist/server.js && webpack -w",
     "webpack": "webpack -w",
     "typescript": "ts-node server/src/server.ts",
     "build": "webpack --mode=production && tsc",

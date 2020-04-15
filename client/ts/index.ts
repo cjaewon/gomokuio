@@ -21,7 +21,7 @@ document.getElementById('setting')!.addEventListener('submit', e => {
   document.getElementById('loader')!.style.display = 'flex';
   
   const body = { 
-    username: (document.getElementById('username-input') as HTMLInputElement).value,
+    username: (document.getElementById('username-input') as HTMLInputElement).value || '',
   };
 
   ws.send(bind('join', body));

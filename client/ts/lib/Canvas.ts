@@ -26,12 +26,12 @@ class Canvas {
   };
 
   init() {
-    this.show(true);
+    this.show();
     this.draw();
     this.catchEvent();
   }
 
-  show(isDisplay: boolean) {
+  show(isDisplay: boolean = true) {
     document.getElementById('game')!.style.display = isDisplay ? 'flex' : 'none';
   }
 

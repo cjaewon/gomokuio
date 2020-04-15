@@ -11,6 +11,7 @@ export function event(ws: ws, id: string, socketData: any) {
 
   switch (name) {
     case 'join': {
+
       const user = new User(ws, id, (data.username as string).substring(0, 9));
       global.db.users[id] = user;
       

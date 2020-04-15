@@ -21,6 +21,9 @@ export default function event(ws: WebSocket, socketData: any) {
       document.getElementById('start-menu')!.style.display = 'none';
       document.getElementById('loader')!.style.display = 'none';
       
+      document.getElementById('player1')!.innerText = data.room.player1.username;
+      document.getElementById('player2')!.innerText = data.room.player2.username;
+
       canvas.init();
       break;
     }

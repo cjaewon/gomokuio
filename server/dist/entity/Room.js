@@ -59,12 +59,54 @@ class Room {
                     return player1 >= 5 ? 1 : 2;
             }
         }
-        // const top = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [0, 10], [0, 11], [0, 12], [0, 13], [0, 14]];
-        // const left = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0], [0, 10], [11, 0], [12, 0], [13, 0], [14, 0]];
-        // const right = [[14, 0], [14, 1], [14, 2], [14, 3], [14, 4], [14, 5], [14, 6], [14, 7], [14, 8], [14, 9], [14, 10], [14, 11], [14, 12], [14, 13], [14, 14]];
-        // const topLeft = [...top, ...left];
-        // const topRight = [...top, ...right];
-        for (let i = 0; i < 15; i++) {
+        const top = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7], [0, 8], [0, 9], [0, 10], [0, 11], [0, 12], [0, 13], [0, 14]];
+        const left = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0], [0, 10], [11, 0], [12, 0], [13, 0], [14, 0]];
+        const right = [[14, 0], [14, 1], [14, 2], [14, 3], [14, 4], [14, 5], [14, 6], [14, 7], [14, 8], [14, 9], [14, 10], [14, 11], [14, 12], [14, 13], [14, 14]];
+        const topLeft = [...top, ...left];
+        const topRight = [...top, ...right];
+        player1 = player2 = 0;
+        let [y, x] = topRight.shift();
+        while (true) {
+            if (this.map[y][x] === 1) {
+                player2 = 0;
+                player1++;
+            }
+            else if (this.map[y][x] === 2) {
+                player1 = 0;
+                player2++;
+            }
+            if (player1 >= 5 || player2 >= 5)
+                return player1 >= 5 ? 1 : 2;
+            if (x <= 0 || y >= 14) {
+                if (topRight.length <= 0)
+                    break;
+                [y, x] = topRight.shift();
+                continue;
+            }
+            y++;
+            x--;
+        }
+        [y, x] = topLeft.shift();
+        while (true) {
+            console.log(y, x);
+            if (this.map[y][x] === 1) {
+                player2 = 0;
+                player1++;
+            }
+            else if (this.map[y][x] === 2) {
+                player1 = 0;
+                player2++;
+            }
+            if (player1 >= 5 || player2 >= 5)
+                return player1 >= 5 ? 1 : 2;
+            if (x <= 14 || y >= 14) {
+                if (topLeft.length <= 0)
+                    break;
+                [y, x] = topLeft.shift();
+                continue;
+            }
+            y++;
+            x++;
         }
     }
     toData() {

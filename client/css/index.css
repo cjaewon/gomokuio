@@ -142,6 +142,6 @@
   border: 2px solid black;
 }
 
-.chat > form > input {
+.chat > input {
   width: 100%;
 }

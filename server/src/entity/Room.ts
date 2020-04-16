@@ -71,8 +71,8 @@ class Room {
     const topRight = [...top, ...right];
 
     player1 = player2 = 0;
-
     let [y, x] = topRight.shift()!;
+    
     while (true) {
       if (this.map[y][x] === 1) {
         player2 = 0;
@@ -87,6 +87,7 @@ class Room {
       if (x <= 0 || y >= 14) {
         if (topRight.length <= 0) break;
         [y, x] = topRight.shift()!;
+        player1 = player2 = 0;
         continue
       }
 
@@ -94,9 +95,10 @@ class Room {
       x--;
     }
 
+    player1 = player2 = 0;
     [y, x] = topLeft.shift()!;
+
     while (true) {
-      console.log(y, x);
       if (this.map[y][x] === 1) {
         player2 = 0;
         player1++;
@@ -110,6 +112,7 @@ class Room {
       if (x <= 14 || y >= 14) {
         if (topLeft.length <= 0) break;
         [y, x] = topLeft.shift()!;
+        player1 = player2 = 0;
         continue
       }
 

@@ -81,14 +81,15 @@ class Room {
                 if (topRight.length <= 0)
                     break;
                 [y, x] = topRight.shift();
+                player1 = player2 = 0;
                 continue;
             }
             y++;
             x--;
         }
+        player1 = player2 = 0;
         [y, x] = topLeft.shift();
         while (true) {
-            console.log(y, x);
             if (this.map[y][x] === 1) {
                 player2 = 0;
                 player1++;
@@ -103,6 +104,7 @@ class Room {
                 if (topLeft.length <= 0)
                     break;
                 [y, x] = topLeft.shift();
+                player1 = player2 = 0;
                 continue;
             }
             y++;

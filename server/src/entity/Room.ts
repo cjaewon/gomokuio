@@ -70,63 +70,9 @@ class Room {
     // const topLeft = [...top, ...left];
     // const topRight = [...top, ...right];
 
-    // topLeft.shift();
-    // topRight.shift(); // 어차피 시작이 0, 0이므로 shift해서 없애줌
-
-    // let i = 0, j = 0;
-
-    // // 왼쪽에서 오른쪽 대가석 ( / ) 계산
-
-    // while (true) {
-    //   if (j <= 0) {
-    //     [i, j] = topRight.shift()!;
-    //   console.log(i, j, 'shift');
-
-    //     if (j === 14 && i === 14) break;
-
-    //     player1 = player2 = 0;
-    //   }
-
-    //   if (this.map[i][j] === 1) {
-    //     player1++;
-    //     player2 = 0;
-    //   } else if (this.map[i][j] === 2) {
-    //     player2++;
-    //     player1 = 0;
-    //   }
-
-    //   if (player1 >= 5 || player2 >= 5) return player1 >= 5 ? 1 : 2;
-
-    //   i++;
-    //   j--;
-
-    //   console.log(i, j)
-
-    // }
-
-    // i = j = 0;
-
-    // while (true) {
-    //   if (j >= 14) {
-    //     [i, j] = topLeft.shift()!;
-    //     if (j === 14 && i === 14) break;
-
-    //     player1 = player2 = 0;
-    //   }
+    for (let i = 0; i < 15; i++) {
       
-    //   if (this.map[i][j] === 1) {
-    //     player1++;
-    //     player2 = 0;
-    //   } else if (this.map[i][j] === 2) {
-    //     player2++;
-    //     player1 = 0;
-    //   }
-
-    //   if (player1 >= 5 || player2 >= 5) return player1 >= 5 ? 1 : 2;
-
-    //   i--;
-    //   j++;
-    // }
+    }
   }
 
   toData() {

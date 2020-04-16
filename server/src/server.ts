@@ -10,7 +10,6 @@ const server = http.createServer(app);
 
 const wss = new ws.Server({ server });
 
-global.ws = {};
 global.db = {
   rooms: {},
   users: {},

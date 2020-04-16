@@ -11,7 +11,6 @@ const event_1 = require("./event");
 const app = express_1.default();
 const server = http_1.default.createServer(app);
 const wss = new ws_1.default.Server({ server });
-global.ws = {};
 global.db = {
     rooms: {},
     users: {},

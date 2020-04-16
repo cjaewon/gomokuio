@@ -24,6 +24,9 @@ export default function event(ws: WebSocket, socketData: any) {
       document.getElementById('player1')!.innerText = data.room.player1.username;
       document.getElementById('player2')!.innerText = data.room.player2.username;
 
+      document.getElementById('turn')!.innerHTML = 
+      `현재 턴 : ${window.db.room.turn === 'player1' ?  window.db.room.player1.username : window.db.room.player2.username }`;
+
       canvas.init();
       break;
     }
@@ -33,6 +36,9 @@ export default function event(ws: WebSocket, socketData: any) {
       window.db.room.map[data.x][data.y] = data.color;
       window.db.room.turn = data.turn;
       
+      document.getElementById('turn')!.innerHTML = 
+        `현재 턴 : ${window.db.room.turn === 'player1' ?  window.db.room.player1.username : window.db.room.player2.username }`;
+
       canvas.draw();
       break;
     }

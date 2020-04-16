@@ -14,7 +14,6 @@ declare global {
   namespace NodeJS {
     interface Global {
       db: DB;
-      ws: { [key: string]: ws };
     } 
   }
 }

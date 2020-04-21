@@ -78,5 +78,23 @@ export default function event(ws: WebSocket, socketData: any) {
 
       break;
     }
+    case 'chat': {
+      const chatList = document.getElementById('chat-list')!;
+
+      const chat = document.createElement('div');
+      
+      const chatName = document.createElement('b');
+      const name = document.createTextNode(data.name);
+      
+      chatName.appendChild(name);
+
+      const chatText = document.createTextNode(`: ${data.text}`);
+
+      chat.appendChild(chatName);
+      chat.appendChild(chatText);
+
+      chatList.appendChild(chat);
+      break;
+    }
   }
 };

@@ -12,7 +12,8 @@
     
     <form id="setting" class="setting">
       <input id="username-input" type="text" placeholder="유저 이름" maxlength="7" autofocus/>
-      <button type="submit">플레이</button>
+      <button type="submit" class="play-button">플레이</button>
+      <button type="submit" class="invite-button">초대하기</button>
     </form>
 
     <div id="loader" class="loader">
@@ -31,7 +32,10 @@
       </div>
       <span id="turn" class="turn"></span>
       <div class="chat">
-        <input type="text" />
+        <div id="chat-list" class="chat-list">
+
+        </div>
+        <input id="chat-input" type="text" placeholder="채팅" />
       </div>
     </div>
   </section>

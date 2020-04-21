@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Nanum+Gothic:wght@400&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
 
 html, body {
   font-family: 'Nanum Gothic', sans-serif;
@@ -71,12 +71,23 @@ html, body {
   font-weight: bold;
 
   margin-top: 0.5rem;
-  background-color: #408AFF;
   transition: all 0.147s ease-in 0s;
 }
 
-.setting > button:hover {
+.play-button {
+  background-color: #408AFF;
+}
+
+.invite-button {
+  background-color: #ff5d40;
+}
+
+.setting > .play-button:hover {
   background-color: #3d84f5;
+}
+
+.setting > .invite-button:hover {
+  background-color: #f5593d;
 }
 
 .loader {
@@ -155,4 +166,11 @@ html, body {
 
 .chat > input {
   width: 100%;
+  height: 4%;
+  box-sizing : border-box;
+}
+
+.chat-list {
+  width: 100%;
+  height: 96%;
 }

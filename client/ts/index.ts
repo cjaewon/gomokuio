@@ -25,3 +25,14 @@ document.getElementById('setting')!.addEventListener('submit', e => {
 
 
 ws.onmessage = ({ data }) => event(ws, data);
+
+document.getElementById('chat-input')!.addEventListener('keydown', (e) => {
+  if (e.keyCode === 13) {
+    const text = (document.getElementById('chat-input') as HTMLInputElement).value;
+    (document.getElementById('chat-input') as HTMLInputElement).value = '';
+
+    if (text.trim().length === 0) return;
+
+    ws.send(bind('chat', { text }));
+  }
+})

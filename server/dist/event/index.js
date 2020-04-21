@@ -35,6 +35,7 @@ function event(ws, id, socketData) {
             catch (e) {
                 console.error(`[ERROR] Socket Send Error : event = "game_start", error = ${e}`);
             }
+            break;
         }
         case 'click': {
             const player = global.db.users[id];
@@ -71,6 +72,24 @@ function event(ws, id, socketData) {
                 }
                 delete global.db.rooms[player.roomId];
             }
+            break;
+        }
+        case 'chat': {
+            const player = global.db.users[id];
+            if (!player)
+                return; // 플레이어가 없을 때
+            const room = global.db.rooms[player.roomId];
+            if (!room)
+                return; // 만약 방이 삭제되고 요청이 올때
+            try {
+                room.sendAll('chat', {
+                    name: player.username,
+                    text: data.text,
+                });
+            }
+            catch (e) {
+            }
+            break;
         }
     }
 }

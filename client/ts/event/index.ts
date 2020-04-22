@@ -94,6 +94,10 @@ export default function event(ws: WebSocket, socketData: any) {
       chat.appendChild(chatText);
 
       chatList.appendChild(chat);
+
+      chatList.scrollTop = chatList.scrollHeight;
+
+
       break;
     }
   }

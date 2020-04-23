@@ -1,6 +1,7 @@
 import Room from "../entity/Room";
 import User from "../entity/User";
 import Canvas from "../lib/Canvas";
+import { exitGame } from '../lib/utill';
 
 const canvas = new Canvas();
 
@@ -44,15 +45,9 @@ export default function event(ws: WebSocket, socketData: any) {
     }
     case 'user_out': {
       alert('상대 유저가 나갔습니다.\n 5초 뒤 자동으로 메인으로 이동합니다.');
+
       setTimeout(() => {
-        document.getElementById('start-menu')!.style.display = 'block';
-        document.getElementById('setting')!.style.display = 'flex';
-        document.getElementById('loader')!.style.display = 'none';
-
-        canvas.show(false);
-
-        window.db.room = null;
-        window.db.user!.roomId = '';
+        exitGame(canvas);
       }, 5000);
       break;
     }
@@ -66,14 +61,7 @@ export default function event(ws: WebSocket, socketData: any) {
       }
 
       setTimeout(() => {
-        document.getElementById('start-menu')!.style.display = 'block';
-        document.getElementById('setting')!.style.display = 'flex';
-        document.getElementById('loader')!.style.display = 'none';
-
-        window.db.room = null;
-        window.db.user!.roomId = '';
-
-        canvas.show(false);
+        exitGame(canvas);
       }, 5000);
 
       break;

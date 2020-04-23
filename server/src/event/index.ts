@@ -86,9 +86,7 @@ export function event(ws: ws, id: string, socketData: any) {
           text: data.text,
         });
       } catch (e) {
-
       }
-
 
       break;
     } 

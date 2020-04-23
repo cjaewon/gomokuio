@@ -4,6 +4,7 @@ import ws from 'ws';
 import { v4 as uuid4 } from 'uuid';
 
 import { event, close } from './event';
+import routes from './routes';
 
 const app = express();
 const server = http.createServer(app);
@@ -15,6 +16,7 @@ global.db = {
   users: {},
 
   matchQueue: [],
+  inviteMatch: {}
 };
 
 app.use((req, res, next) => {
@@ -23,6 +25,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static(__dirname + '/../../client')); // 배포때는 캐싱 maxAge 
+app.use(routes);
 
 wss.on('connection', (ws) => {
   const id = uuid4();

@@ -8,6 +8,12 @@ interface DB {
   users: { [key: string]: User };
 
   matchQueue: Room[];
+  inviteMatch: { 
+    [key: string]: {
+      room: Room;
+      time: Date;
+    }
+  };
 }
 
 declare global {

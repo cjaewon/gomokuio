@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const ws_1 = __importDefault(require("ws"));
 const uuid_1 = require("uuid");
 const event_1 = require("./event");
+const routes_1 = __importDefault(require("./routes"));
 const app = express_1.default();
 const server = http_1.default.createServer(app);
 const wss = new ws_1.default.Server({ server });
@@ -15,6 +16,7 @@ global.db = {
     rooms: {},
     users: {},
     matchQueue: [],
+    inviteMatch: {}
 };
 app.use((req, res, next) => {
     if (req.path.match(/\/ts|\/css/g))
@@ -22,6 +24,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use(express_1.default.static(__dirname + '/../../client')); // 배포때는 캐싱 maxAge 
+app.use(routes_1.default);
 wss.on('connection', (ws) => {
     const id = uuid_1.v4();
     console.log(`[INFO] New User : id = ${id}`);

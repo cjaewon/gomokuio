@@ -1,18 +1,18 @@
-import { Router, Request, Response } from "express";
-import { v4 as uuid4 } from 'uuid';
-import Room from "../entity/Room";
+import { Router } from 'express';
 
-const router = Router();
+const routes = Router();
 
-const createInviteCode = (req: Request, res: Response) => {
-  const id = uuid4();
+routes.get('/ranking', (rep, res) => {
+  const users = Object.entries(global.db.users);
+  
+  users.sort((i, j) => i[1].score < j[1].score ? 1 : 0);
+  users.slice(0, 10);
 
-  global.db.inviteMatch[id] = {
-    room: new Room(uuid4(), null, null),
-    time: new Date(),
+  const body = {
+    ranking: users.map(user => user[1].toData()),  
   };
-};
 
-router.get('create-invite-code', createInviteCode);
+  res.status(200).send(body);
+});
 
-export default router;
+export default routes;

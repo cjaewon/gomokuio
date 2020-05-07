@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import '../css/index.css';
 import event from './event';
 import { bind } from './lib/utill';
@@ -35,4 +37,16 @@ document.getElementById('chat-input')!.addEventListener('keydown', (e) => {
 
     ws.send(bind('chat', { text }));
   }
-})
+});
+
+
+const getRanking = async() => {
+  const url = `${window.location.protocol}//${location.host}/api/ranking`;
+
+  const response = await axios.get(url);
+  const { ranking } = response.data;
+
+  document.getElementById('#ranking')!.nodeValue = ranking;
+};
+
+getRanking();

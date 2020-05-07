@@ -7,8 +7,8 @@ const http_1 = __importDefault(require("http"));
 const express_1 = __importDefault(require("express"));
 const ws_1 = __importDefault(require("ws"));
 const uuid_1 = require("uuid");
-const event_1 = require("./event");
 const routes_1 = __importDefault(require("./routes"));
+const event_1 = require("./event");
 const app = express_1.default();
 const server = http_1.default.createServer(app);
 const wss = new ws_1.default.Server({ server });
@@ -16,7 +16,6 @@ global.db = {
     rooms: {},
     users: {},
     matchQueue: [],
-    inviteMatch: {}
 };
 app.use((req, res, next) => {
     if (req.path.match(/\/ts|\/css/g))

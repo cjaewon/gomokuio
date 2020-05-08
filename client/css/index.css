@@ -176,3 +176,14 @@ html, body {
 
   overflow: auto;
 }
+
+.ranking {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 2rem;
+}
+
+.ranking th, td {
+  border-bottom: 1px solid #ddd;
+}

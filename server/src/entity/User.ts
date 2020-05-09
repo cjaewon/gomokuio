@@ -5,7 +5,7 @@ import { bind } from '../lib/utill';
 class User {
   id: string; // socket id
   username: string;
-  score: Number;
+  score: number;
   roomId: string | null;
   
   private ws: ws;

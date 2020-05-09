@@ -2,6 +2,7 @@ import ws from 'ws';
 
 import User from "../entity/User";
 import * as system from '../lib/system';
+import { userInfo } from 'os';
 
 export function event(ws: ws, id: string, socketData: any) {
   const response = JSON.parse(socketData);
@@ -63,6 +64,7 @@ export function event(ws: ws, id: string, socketData: any) {
       const win = room.checkWin();
       if (win) {
         try {
+          player.score = player.score + 50;
           room.sendAll('game_end', { win });
         } catch (e) {
           console.error(`[ERROR] Socket Send Error : event = "game_end", error = ${e}`);

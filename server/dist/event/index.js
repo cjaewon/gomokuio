@@ -65,6 +65,7 @@ function event(ws, id, socketData) {
             const win = room.checkWin();
             if (win) {
                 try {
+                    player.score = player.score + 50;
                     room.sendAll('game_end', { win });
                 }
                 catch (e) {

@@ -1,4 +1,6 @@
 import Canvas from "./Canvas";
+import User from '../entity/User';
+import axios from 'axios';
 
 export const bind = (name: string, data: any) => {
   return JSON.stringify({
@@ -22,4 +24,30 @@ export const exitGame = (canvas: Canvas) => {
   while (chatList.firstChild) {
     chatList.firstChild.remove();
   }
+  
+  getRanking();
+};
+
+export const getRanking = async() => {
+  const url = `${window.location.protocol}//${location.host}/api/ranking`;
+
+  const response = await axios.get(url);
+  const { ranking }: { ranking: User[]  } = response.data;
+
+  document.getElementById('ranking')!.innerHTML = `
+    <table>
+      <tr>
+        <th>랭킹</th>
+        <th>이름</th>
+        <th>스코어</th>
+      </tr>
+      ${ranking.map((user, rank) => `
+        <tr>
+          <td>${rank + 1}</td>
+          <td>${user.username}</td>
+          <td>${user.score}</td>
+        </tr>
+      `)}
+    </table>
+  `;
 };

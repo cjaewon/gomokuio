@@ -32,22 +32,26 @@ export const getRanking = async() => {
   const url = `${window.location.protocol}//${location.host}/api/ranking`;
 
   const response = await axios.get(url);
-  const { ranking }: { ranking: User[]  } = response.data;
+  const ranking = response.data.ranking as User[];
 
   document.getElementById('ranking')!.innerHTML = `
-    <table>
+<table>
+  <thead>
+    <tr>
+      <th>랭킹</th>
+      <th>이름</th>
+      <th>스코어</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${ranking.map((user, rank) => `
       <tr>
-        <th>랭킹</th>
-        <th>이름</th>
-        <th>스코어</th>
+        <td>${rank + 1}</td>
+        <td>${user.username}</td>
+        <td>${user.score}</td>
       </tr>
-      ${ranking.map((user, rank) => `
-        <tr>
-          <td>${rank + 1}</td>
-          <td>${user.username}</td>
-          <td>${user.score}</td>
-        </tr>
-      `)}
-    </table>
+    `)}
+  </tbody>
+</table>
   `;
 };

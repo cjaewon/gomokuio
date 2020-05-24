@@ -38,8 +38,5 @@ document.getElementById('chat-input')!.addEventListener('keydown', (e) => {
   }
 });
 
-
-
-
 getRanking();
 setInterval(getRanking, 1000 * 60 * 5); // 5분 한번 식 가져오기

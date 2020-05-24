@@ -33,3 +33,4 @@ wss.on('connection', (ws) => {
 server.listen(process.env.PORT || 3000, () => {
     console.log(`[INFO] Starting Web Server : port = ${process.env.PORT || 3000}`);
 });
+// 판정 다시 추가하기 즉 초기화

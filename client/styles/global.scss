@@ -1,31 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@600&display=swap');
 
-body {
-  background-image: url('../assets/mountains-1412683.svg');
-  background-size: cover;
-  background-repeat: no-repeat;
+:root {
+  /* Light Mode */
+  --light-bg: white;
+  --light-button: #4A5568;
+  --light-input-color: #718096;
+  --light-input-focus-color: #2D3748;
+  /* Dark Mode */
+  --dark-bg: #1A202C;
+
+  /* Default Mode */
+
+  --bg-color: var(--light-bg);
+  --button-color: var(--light-button);
+  --input-color: var(--light-input-focus-color);
+  --input-focus-color: var(--light-input-focus-color);
 }
 
-.start {
-  width: 21rem;
 
-  margin-right: auto;
-  margin-left: auto;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  & > h1 {
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
-
-    font-size: 5rem;
-    font-family: 'MuseoModerno', cursive;
-  }
-
-  & > p {
-    margin-top: 0.15rem;
-    margin-bottom: 0.15rem;
-  }
+body {
+  background: var(--bg-color);
 }

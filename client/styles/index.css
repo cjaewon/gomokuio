@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
 
 html, body {
-  font-family: 'Nanum Gothic', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .start-menu {
@@ -34,61 +34,7 @@ html, body {
 
 }
 
-.setting {
-  display: flex;
 
-  flex-direction: column;
-  align-items: center;
-}
-
-.setting > input {
-  width: 70%;
-  font-size: 1.25rem;
-  outline: 0;
-  background-color: none;
-  border-radius: 3px;
-  border: 1.5px solid rgba(0, 0, 0, .55);
-  box-sizing: border-box;
-  
-  padding: 0.625rem;
-  margin-top: 0.5rem;
-  background-color: transparent;
-  transition: all 0.147s ease-in 0s;
-}
-
-.setting > input:focus {
-  border: 1.5px solid rgba(0, 0, 0, .8); 
-}
-
-.setting > button {
-  width: 70%;
-  height: 3rem;
-  border-radius: 0.45rem;
-  outline: none;
-  cursor: pointer;
-
-  font-size: 1.5rem;
-  font-weight: bold;
-
-  margin-top: 0.5rem;
-  transition: all 0.147s ease-in 0s;
-}
-
-.play-button {
-  background-color: #408AFF;
-}
-
-.invite-button {
-  background-color: #ff5d40;
-}
-
-.setting > .play-button:hover {
-  background-color: #3d84f5;
-}
-
-.setting > .invite-button:hover {
-  background-color: #f5593d;
-}
 
 .loader {
   display: none; /* change flex when button click */

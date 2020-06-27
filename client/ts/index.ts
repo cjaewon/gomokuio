@@ -1,7 +1,9 @@
-import '../css/index.css';
 import event from './event';
 import { bind } from './lib/utill';
 import { getRanking } from './lib/utill';
+
+import '../styles/index.css';
+import '../styles/setting.css';
 
 let ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}`);
 

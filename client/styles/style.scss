@@ -37,8 +37,10 @@ form {
     width: 70%;
     font-size: 1.25rem;
     outline: 0;
-    
+
+    color: var(--text-color);
     background-color: none;
+    
     border-radius: 3px;
     border: 1.5px solid var(--input-color);
 
@@ -61,7 +63,7 @@ form {
     height: 3rem;
     cursor: pointer;
 
-    color: #2D3748;
+    color: var(--text-color);
     background-color: transparent;
 
     border: 2.5px solid var(--button-color);
@@ -75,8 +77,25 @@ form {
     transition: all 0.55s;
 
     &:hover {
-      color: white;
+      color: var(--bg-color);
       background-color: var(--button-color);
+    }
+
+    &:disabled {
+      cursor: default;
+      color: var(--white);
+      border-color: var(--gray);
+      background: var(--gray);
+
+      animation: shake 2s infinite;
+
+      @keyframes shake {
+        0% { transform: translate(1px, 0px); }
+        20% { transform: translate(6px, 0px); }
+        40% { transform: translate(-7px, 0px); }
+        60% { transform: translate(4px, 0px); }
+        70% { transform: translate(0.5px, 0px); }
+      }      
     }
   }
 }

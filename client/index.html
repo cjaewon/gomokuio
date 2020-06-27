@@ -5,15 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>gomokuio (오목 io)</title>
 </head>
-<body id="page">
-  <input id="theme" type="checkbox" />
+<body>
   <section class="start">
     <img src="assets/logo.svg" class="logo" />
     <h1>gomoku.io</h1>
     <p>온라인에서 오목을 즐길 수 있는 웹 게임입니다.</p>
     <form>
       <input id="username" type="text" placeholder="유저 이름" minlength="1" />
-      <button type="submit">플레이</button>
+      <button id="username-button" type="submit">플레이</button>
     </form>
   </section>
   <script src="./scripts/index.ts"></script>

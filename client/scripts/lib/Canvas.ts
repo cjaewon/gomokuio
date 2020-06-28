@@ -20,6 +20,9 @@ export default class Canvas {
 
     this.width = this.canvas.width;
     this.height = this.canvas.height;
+
+    this.y = 0;
+    this.x = 0;
   }
 
   init() {
@@ -76,6 +79,11 @@ export default class Canvas {
     this.ctx.beginPath();
 
     this.ctx.fillStyle = room.user1.id === user.id ? 'black' : 'white'; 
+
+    if (data.room.map[this.y][this.x] !== 0) 
+      this.ctx.fillStyle = room.user1.id === user.id ? 'rgba(0, 0, 0, .8)' : 'rgba(255, 255, 255, .8)'; 
+    
+
     this.ctx.lineWidth = 4;
     this.ctx.strokeStyle = '#CBD5E0';
 
@@ -104,8 +112,10 @@ export default class Canvas {
 
     this.canvas.addEventListener('click', () => {
       const { room, user } = data;
-      if (room.turn.id !== user.id) return;
 
+      if (room.turn.id !== user.id) return;
+      if (data.room.map[this.y][this.x] !== 0) return;
+      
       wsSend(eventName.click, {
         x: this.x,
         y: this.y,

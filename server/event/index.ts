@@ -55,9 +55,11 @@ export const message = async(ws: ws, id: string, wsData: string) => {
       const color = room.turn.id === room.user1.id ? gomokuColor.black : gomokuColor.white 
       const { y, x } = response.data;
 
+      if (room.map[y][x] !== 0) return;
+
       room.map[y][x] = color;
       room.turn = room.turn.id === room.user1.id ? room.user2 : room.user1;
-
+      
       room.send(eventName.clicked, {
         y: response.data.y,
         x: response.data.x,

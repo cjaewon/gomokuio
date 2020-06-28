@@ -51,8 +51,9 @@ export const message = async(wsData: any) => {
     case eventName.clicked: {
       const { x, y, color } = response.data;
 
+
       data.room.turn = data.room.user1.id === data.room.turn.id ? data.room.user2 : data.room.user1;
-      
+
       data.room.map[y][x] = color;
       canvas.draw();
     }

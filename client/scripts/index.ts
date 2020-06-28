@@ -4,7 +4,7 @@ import '../styles/common.scss';
 import '../styles/style.scss';
 import './lib/theme';
 
-import data, { ws } from './data';
+import { ws } from './data';
 import { wsSend } from './lib';
 import { eventName, message } from './event';
 
@@ -44,7 +44,5 @@ document.getElementById('theme-switch').addEventListener('click', async e => {
     document.body.style.transition = '';
   }
 });
-
-
 
 ws.onmessage = ({ data }) => message(data); 

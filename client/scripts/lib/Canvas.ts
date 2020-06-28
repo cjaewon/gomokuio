@@ -1,3 +1,6 @@
+import { eventName, gomokuColor } from '../event';
+import data from '../data';
+import { wsSend } from '../lib';
 import { getTheme } from '../lib/theme';
 
 export default class Canvas {
@@ -49,16 +52,37 @@ export default class Canvas {
 
     for (let i = 0; i < 4; i++) this.ctx.strokeRect(1, 1, this.width - 2, this.height - 2); // 테두리 부분을 진하게 하기 위함
 
-      this.ctx.beginPath();
+    const { room, user } = data;
 
-      this.ctx.fillStyle = 'white';
-      this.ctx.lineWidth = 5;
-      this.ctx.strokeStyle = 'black';
+    for (let i = 0; i < 15; i++) {
+      for (let j = 0; j < 15; j++) {
+        if (room.map[i][j] === 0) continue;
 
-      this.ctx.arc(this.x * scaleX, this.y * scaleY, scaleX / 2.25, 0, 2 * Math.PI);
-      this.ctx.fill();
-      this.ctx.stroke();
-      this.ctx.closePath();
+        this.ctx.beginPath();
+
+        this.ctx.fillStyle = room.map[i][j] === gomokuColor.black ? 'black' : 'white';
+        this.ctx.lineWidth = 4;
+        this.ctx.strokeStyle = '#CBD5E0';
+  
+        this.ctx.arc(j * scaleX, i * scaleY, scaleX / 2.25, 0, 2 * Math.PI);
+        this.ctx.fill();
+        this.ctx.stroke();
+        this.ctx.closePath();
+      }
+    }
+
+    if (room.turn.id !== user.id) return;
+
+    this.ctx.beginPath();
+
+    this.ctx.fillStyle = room.user1.id === user.id ? 'black' : 'white'; 
+    this.ctx.lineWidth = 4;
+    this.ctx.strokeStyle = '#CBD5E0';
+
+    this.ctx.arc(this.x * scaleX, this.y * scaleY, scaleX / 2.25, 0, 2 * Math.PI);
+    this.ctx.fill();
+    this.ctx.stroke();
+    this.ctx.closePath();
   }
 
   catchEvent() {
@@ -66,18 +90,28 @@ export default class Canvas {
     const scaleY = this.height / 15;
 
     this.canvas.addEventListener('mousemove', e => {
+      const { room, user } = data;
+      if (room.turn.id !== user.id) return;
+
       const mouseX = e.clientX - this.canvas.offsetLeft;
       const mouseY = e.clientY - this.canvas.offsetTop;
 
-      console.log(mouseX, mouseY);
-
-      this.x = Math.abs(Math.round(mouseX / scaleX)); // 배열은 x,y가 다르기 때문에 x 좌표를 y에 대입
+      this.x = Math.abs(Math.round(mouseX / scaleX));
       this.y = Math.abs(Math.round(mouseY / scaleY));
-      
-      console.log(this.x, this.y);
 
       this.draw();
     }, false);
+
+    this.canvas.addEventListener('click', () => {
+      const { room, user } = data;
+      if (room.turn.id !== user.id) return;
+
+      wsSend(eventName.click, {
+        x: this.x,
+        y: this.y,
+      });
+    });
   }
+
 
 }

@@ -6,6 +6,7 @@ import path from 'path';
 
 import log from './lib/logger';
 import { message, close } from './event';
+import { uuid4 } from './lib/uuid';
 
 const app = new Koa();
 
@@ -14,7 +15,9 @@ const wss = new ws.Server({ server });
 
 app.use(serve(path.resolve(__dirname, '../dist')));
 wss.on('connection', ws => {
-  ws.on('message', data => message(ws, <string>data));
+  const id = uuid4();
+
+  ws.on('message', data => message(ws, id, <string>data));
   ws.on('close', () => close(ws));
 });
 

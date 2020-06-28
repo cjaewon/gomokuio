@@ -5,11 +5,13 @@ export default class User {
 
   id: string;
   username: string;
+  roomID: string | null;
 
   constructor(ws: ws, id: string, username: string) {
     this.ws = ws;
     this.id = id;
     this.username = username;
+    this.roomID = null;
   }
 
   send(name: string, data: Object) {

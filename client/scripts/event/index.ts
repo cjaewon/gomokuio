@@ -1,12 +1,21 @@
 import data, { canvas } from '../data';
 import Room from "../entity/Room";
+import User from '../entity/User';
+
+export const enum gomokuColor {
+  black = 1,
+  white = 2,
+}
 
 export const enum eventName {
   /* to Client */
   matched = 'matched',
+  setUser = 'set-user',
+  clicked = 'clicked',
 
   /* to Server */
   login = 'login',
+  click = 'click',
 }
 
 type Response = {
@@ -27,10 +36,25 @@ export const message = async(wsData: any) => {
 
       await new Promise(r => setTimeout(r, 1400))
       document.getElementById('start').classList.add('shake-out');
-      await new Promise(r => setTimeout(r, 530));
 
+      await new Promise(r => setTimeout(r, 530));
       canvas.init();
+
       break;
+    }
+    case eventName.setUser: {
+      const user = new User(response.data.id, response.data.username);
+      data.user = user;
+
+      break;
+    }
+    case eventName.clicked: {
+      const { x, y, color } = response.data;
+
+      data.room.turn = data.room.user1.id === data.room.turn.id ? data.room.user2 : data.room.user1;
+      
+      data.room.map[y][x] = color;
+      canvas.draw();
     }
   }
 }

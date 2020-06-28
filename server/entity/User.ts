@@ -1,12 +1,15 @@
 import ws from 'ws';
 
 export default class User {
-  id: string;
   private ws: ws;
 
-  constructor(ws: ws, id: string) {
+  id: string;
+  username: string;
+
+  constructor(ws: ws, id: string, username: string) {
     this.ws = ws;
     this.id = id;
+    this.username = username;
   }
 
   send(name: string, data: Object) {

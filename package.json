@@ -8,7 +8,12 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "parcel": "parcel client/index.html"
+    "parcel": "parcel client/index.html",
+    "parcel:watch": "parcel watch client/index.html",
+
+    "server": "node server-dist/app.js",
+    "server:build": "tsc -p server",
+    "server:dev": "yarn server:build && yarn server"
   },
   "devDependencies": {
     "@types/koa": "^2.11.3",

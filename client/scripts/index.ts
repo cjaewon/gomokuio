@@ -4,8 +4,7 @@ import '../styles/common.scss';
 import '../styles/style.scss';
 import './lib/theme';
 
-
-import { ws } from './data';
+import data, { ws } from './data';
 import { wsSend } from './lib';
 import { eventName, message } from './event';
 
@@ -35,7 +34,6 @@ document.getElementById('theme-switch').addEventListener('click', async e => {
     await new Promise(r=>setTimeout(r, 1000));
 
     document.body.style.transition = '';
-
   } else {
     localStorage.setItem('theme', 'light');
     document.body.classList.remove('dark');

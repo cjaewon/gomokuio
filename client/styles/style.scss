@@ -1,3 +1,12 @@
+canvas {
+  display: none;
+
+  width: 720px;
+  height: 720px;
+
+  margin: 2rem auto 0;
+}
+
 .logo {
   position: relative;
   top: 22.5px;
@@ -81,3 +90,8 @@ form {
 
   box-shadow: 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05);
 }
+
+// table {
+//   border-collapse: collapse;
+//   width: 100%;
+// }

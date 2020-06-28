@@ -1,4 +1,4 @@
-import data ,{ ws } from '../data';
+import data, { canvas } from '../data';
 import Room from "../entity/Room";
 
 export const enum eventName {
@@ -26,8 +26,10 @@ export const message = async(wsData: any) => {
       data.room = room;
 
       await new Promise(r => setTimeout(r, 1400))
-
       document.getElementById('start').classList.add('shake-out');
+      await new Promise(r => setTimeout(r, 530));
+
+      canvas.init();
       break;
     }
   }

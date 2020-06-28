@@ -2,11 +2,14 @@
 
 :root {
   /* Light Mode */
+
   --light-text: black;
   --light-bg: white;
   --light-button: #4A5568;
   --light-input-color: #718096;
   --light-input-focus-color: #2D3748;
+  --light-border-color: #4A5568;
+
   /* Dark Mode */
 
   --dark-text: white;
@@ -14,6 +17,7 @@
   --dark-button: #EDF2F7;
   --dark-input-color: #CBD5E0;
   --dark-input-focus-color: #F7FAFC;
+  --dark-border-color: #EDF2F7;
 
   /* Default Mode */
 
@@ -22,8 +26,11 @@
   --button-color: var(--light-button);
   --input-color: var(--light-input-color);
   --input-focus-color: var(--light-input-focus-color);
+  --border-color: var(--light-border-color);
 
   --white: white;
+  --yellow: #F6E05E;
+  --light-gray: #E2E8F0;
   --gray: #718096;
   --black: black;
 }
@@ -34,9 +41,12 @@
   --button-color: var(--dark-button);
   --input-color: var(--dark-input-color);
   --input-focus-color: var(--dark-input-focus-color);
+  --border-color: var(--dark-border-color);
 }
 
 body {
   background: var(--bg-color);
   color: var(--text-color);
+
+  // transition: all 0.5s;
 }

@@ -23,3 +23,13 @@
     max-height: 0;
   }
 }
+
+@keyframes theme-switch {
+  from {
+    filter: hue-rotate(0deg);
+  }
+
+  to {
+    filter: hue-rotate(360deg);
+  }
+}

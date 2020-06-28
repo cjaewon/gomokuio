@@ -1,4 +1,4 @@
-import { ws } from '../data';
+import data ,{ ws } from '../data';
 import Room from "../entity/Room";
 
 export const enum eventName {
@@ -19,15 +19,15 @@ export const message = async(wsData: any) => {
 
   switch (response.name) {
     case eventName.matched: {
-      const room: Room = new Room(response.data.id, response.data.user1, response.data.user2);
+      const room = new Room(response.data.id, response.data.user1, response.data.user2);
       const button = <HTMLButtonElement>document.getElementById('username-button');
 
       button.innerText = '유저를 찾았습니다 !';
+      data.room = room;
 
       await new Promise(r => setTimeout(r, 1400))
 
       document.getElementById('start').classList.add('shake-out');
-
       break;
     }
   }

@@ -61,3 +61,23 @@ form {
   }
 }
 
+.info {
+  max-width: 340px;
+  margin: 0 auto;
+  margin-top: 1rem;
+
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+
+  & > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0.5rem 0.75rem 0.5rem;
+
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  box-shadow: 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05);
+}

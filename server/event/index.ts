@@ -29,7 +29,7 @@ export const message = async(ws: ws, wsData: string) => {
       users[user.id] = user;
 
       const room = matchUser(user);
-      console.log(room)
+
       if (!room) return;
       room.send(eventName.matched, room.toObject());
 

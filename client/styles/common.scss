@@ -1,0 +1,37 @@
+input {
+  outline: 0;
+
+  color: var(--text-color);
+  background-color: none;
+  
+  border-radius: 3px;
+  border: 1.5px solid var(--input-color);
+
+  box-sizing: border-box;
+  
+  padding: 0.625rem;
+  margin-top: 0.5rem;
+
+  background-color: transparent;
+
+  transition: all 0.147s ease-in 0s;
+
+  &:focus {
+    border: 1.5px solid var(--input-focus-color);
+  }
+}
+
+button {
+  cursor: pointer;
+
+  color: var(--text-color);
+  background-color: transparent;
+
+  border: 2.5px solid var(--button-color);
+  border-radius: 4px;
+  outline: none;
+
+  font-size: 1.25rem;
+
+  margin-top: 0.5rem;
+}

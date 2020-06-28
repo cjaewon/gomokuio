@@ -8,7 +8,11 @@ import User from '../entity/User';
 
 
 const enum eventName {
-  login = 'login'
+  /* to Client */
+  matched = 'matched',
+
+  /* to Server */
+  login = 'login',
 }
 
 type Response = {
@@ -25,9 +29,9 @@ export const message = async(ws: ws, wsData: string) => {
       users[user.id] = user;
 
       const room = matchUser(user);
-
+      console.log(room)
       if (!room) return;
-      room.send('matched', room.toObject());
+      room.send(eventName.matched, room.toObject());
 
       break;
     }

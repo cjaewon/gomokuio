@@ -1,8 +1,11 @@
 import '../styles/global.scss';
+import '../styles/animation.scss';
+import '../styles/common.scss';
 import '../styles/style.scss';
 
+import { ws } from './data';
 import { wsSend } from './lib';
-import { eventName } from './event';
+import { eventName, message } from './event';
 
 document.getElementsByTagName('form')[0].addEventListener('submit', async e => {
   e.preventDefault();
@@ -20,5 +23,4 @@ document.getElementsByTagName('form')[0].addEventListener('submit', async e => {
   wsSend(eventName.login, { username });
 });
 
-
-document.body.classList.add('dark');
+ws.onmessage = ({ data }) => message(data); 

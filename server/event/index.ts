@@ -5,6 +5,7 @@ import { matchUser } from '../lib/system';
 
 import User from '../entity/User';
 import Room from '../entity/Room';
+import log from '../lib/logger';
 
 const enum gomokuColor {
   black = 1,
@@ -16,6 +17,7 @@ const enum eventName {
   matched = 'matched',
   setUser = 'set-user',
   clicked = 'clicked',
+  quit = 'quit',
 
   /* to Server */
   login = 'login',
@@ -39,6 +41,7 @@ export const message = async(ws: ws, id: string, wsData: string) => {
 
       const room = matchUser(user);
 
+      log.info(`Player ${id} joined`);
       if (!room) return;
 
       room.user1.roomID = room.id;
@@ -69,6 +72,18 @@ export const message = async(ws: ws, id: string, wsData: string) => {
   }
 };
 
-export const close = async(ws: ws) => {
+export const close = async(id: string) => {
+  const user = users[id];
+  
+  if (!user) return;
 
+  if (user.roomID) {
+    const room = rooms[user.roomID];
+    room.send(eventName.quit, {});
+  
+    delete rooms[user.roomID];
+  }
+
+  log.info(`Player ${id} quit`);
+  delete users[id];
 };

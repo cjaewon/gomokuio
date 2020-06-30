@@ -12,7 +12,8 @@ export const enum eventName {
   matched = 'matched',
   setUser = 'set-user',
   clicked = 'clicked',
-
+  quit = 'quit',
+  
   /* to Server */
   login = 'login',
   click = 'click',

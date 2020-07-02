@@ -2,6 +2,7 @@ import '../styles/global.scss';
 import '../styles/animation.scss';
 import '../styles/common.scss';
 import '../styles/style.scss';
+
 import './lib/theme';
 
 import { ws } from './data';

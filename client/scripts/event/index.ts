@@ -1,4 +1,5 @@
 import data, { canvas } from '../data';
+import * as toast from '../lib/toast';
 import Room from "../entity/Room";
 import User from '../entity/User';
 
@@ -57,6 +58,13 @@ export const message = async(wsData: any) => {
 
       data.room.map[y][x] = color;
       canvas.draw();
+
+      break;
+    }
+    case eventName.quit: {
+      toast.error('상대편 플레이어가 게임을 나갔습니다.');
+      
+      break;
     }
   }
 }

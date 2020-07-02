@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@600&family=Noto+Sans+KR:wght@400;500;700&display=swap');
 
 :root {
   /* Light Mode */
@@ -48,5 +48,6 @@ body {
   background: var(--bg-color);
   color: var(--text-color);
 
+  font-family: 'Noto Sans KR', sans-serif;
   // transition: all 0.5s;
 }

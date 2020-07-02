@@ -18,7 +18,7 @@ wss.on('connection', ws => {
   const id = uuid4();
 
   ws.on('message', data => message(ws, id, <string>data));
-  ws.on('close', () => close(ws));
+  ws.on('close', () => close(id));
 });
 
 

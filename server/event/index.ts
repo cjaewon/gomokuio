@@ -74,12 +74,14 @@ export const message = async(ws: ws, id: string, wsData: string) => {
 
 export const close = async(id: string) => {
   const user = users[id];
-  
+  console.log(1)
   if (!user) return;
 
   if (user.roomID) {
     const room = rooms[user.roomID];
-    room.send(eventName.quit, {});
+
+    if (room.user1.id === id) room.user2.send(eventName.quit, {});
+    else room.user1.send(eventName.quit, {});
   
     delete rooms[user.roomID];
   }

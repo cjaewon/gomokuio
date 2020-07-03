@@ -25,6 +25,7 @@ type Response = {
   data: any; 
 }
 
+
 export const message = async(wsData: any) => {
   const response: Response = JSON.parse(wsData);
 

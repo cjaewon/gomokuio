@@ -32,7 +32,8 @@ export default class Canvas {
   }
 
   display(bool: boolean = true) {
-    this.canvas.style.display = bool ? 'block' : 'none';
+    const gameElement = document.getElementById('game');
+    gameElement.style.display = bool ? 'flex' : 'none';
   }
 
   draw() {

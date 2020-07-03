@@ -9,6 +9,7 @@
   --light-input-color: #718096;
   --light-input-focus-color: #2D3748;
   --light-border-color: #4A5568;
+  --light-game-info-color: #2D3748;
 
   /* Dark Mode */
 
@@ -18,6 +19,7 @@
   --dark-input-color: #CBD5E0;
   --dark-input-focus-color: #F7FAFC;
   --dark-border-color: #EDF2F7;
+  --dark-game-info-color: #F7FAFC;
 
   /* Default Mode */
 
@@ -27,6 +29,7 @@
   --input-color: var(--light-input-color);
   --input-focus-color: var(--light-input-focus-color);
   --border-color: var(--light-border-color);
+  --game-info-color: var(--light-game-info-color);
 
   --white: white;
   --yellow: #F6E05E;
@@ -42,6 +45,7 @@
   --input-color: var(--dark-input-color);
   --input-focus-color: var(--dark-input-focus-color);
   --border-color: var(--dark-border-color);
+  --game-info-color: var(--dark-game-info-color);
 }
 
 body {

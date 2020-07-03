@@ -10,8 +10,8 @@ import { wsSend } from './lib';
 import { eventName, message } from './event';
 
 // will remove
-document.getElementById('start').style.display = 'none';
-canvas.init();
+// document.getElementById('start').style.display = 'none';
+// canvas.init();
 
 document.getElementsByTagName('form')[0].addEventListener('submit', async e => {
   e.preventDefault();

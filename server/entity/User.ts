@@ -1,3 +1,4 @@
+import { createHash } from 'crypto';
 import ws from 'ws';
 
 export default class User {
@@ -6,12 +7,14 @@ export default class User {
   id: string;
   username: string;
   roomID: string | null;
+  profile_img: string;
 
   constructor(ws: ws, id: string, username: string) {
     this.ws = ws;
     this.id = id;
     this.username = username;
     this.roomID = null;
+    this.profile_img  = `https://www.gravatar.com/avatar/${createHash('md5').update(username).digest('hex')}?s=64&d=retro`;
   }
 
   send(name: string, data: Object) {

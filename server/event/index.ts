@@ -34,8 +34,7 @@ export const message = async(ws: ws, id: string, wsData: string) => {
 
   switch (response.name) {
     case eventName.login: {
-      const user = new User(ws, id, response.data.username || 'Player!');
-
+      const user = new User(ws, id, response.data.username || 'Player');
       users[id] = user;
       user.send(eventName.setUser, user.toObject());
 
@@ -64,8 +63,8 @@ export const message = async(ws: ws, id: string, wsData: string) => {
       room.turn = room.turn.id === room.user1.id ? room.user2 : room.user1;
       
       room.send(eventName.clicked, {
-        y: response.data.y,
-        x: response.data.x,
+        y,
+        x,
         color,
       });
     }
@@ -74,7 +73,6 @@ export const message = async(ws: ws, id: string, wsData: string) => {
 
 export const close = async(id: string) => {
   const user = users[id];
-  console.log(1)
   if (!user) return;
 
   if (user.roomID) {

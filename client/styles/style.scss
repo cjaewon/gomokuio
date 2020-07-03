@@ -109,9 +109,22 @@ form {
       width: 100%;
 
       & > div {
-        margin: 1rem 0.25rem 1rem 1rem;
+        display: flex;
+        align-items: center;
+        margin: 0.425rem 0.5rem 0 0.5rem;
+        padding: 0.25rem;
+        border-radius: 4px;
+        background-color: white;
+        font-size: 1.125rem;
+        font-weight: 500;
+
+        & > span {
+          margin-left: 0.35rem;
+        }
+
         & > img {
           width: 2.75rem;
+          border: 3px solid white ;
           border-radius: 50%;
           object-fit: cover;
         }

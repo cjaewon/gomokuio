@@ -1,4 +1,5 @@
 import User from "./User";
+import { checkWin } from '../lib/system';
 
 export default class Room {
   id: string;
@@ -20,6 +21,10 @@ export default class Room {
   send(name: string, data: Object) {
     this.user1.send(name, data);
     this.user2.send(name, data);
+  }
+
+  checkWin() {
+    return checkWin(this.map);
   }
 
   toObject() {

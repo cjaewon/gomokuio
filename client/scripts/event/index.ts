@@ -15,6 +15,7 @@ export const enum eventName {
   clicked = 'clicked',
   quit = 'quit',
   newChat = 'new-chat',
+  gameEnd = 'game-end',
 
   /* to Server */
   login = 'login',
@@ -110,6 +111,15 @@ export const message = async(wsData: any) => {
       toast.error('상대편 플레이어가 게임을 나갔습니다.');
       
       break;
+    }
+    case eventName.gameEnd: {
+      const { winner } = response.data;
+
+      if (data.room[winner].id === data.user.id)
+        toast.success('🎉 게임을 승리하셨습니다!');
+      else
+        toast.error('😔 게임에 패배하셨습니다...');
+      
     }
   }
 }

@@ -19,6 +19,7 @@ const enum eventName {
   clicked = 'clicked',
   quit = 'quit',
   newChat = 'new-chat',
+  gameEnd = 'game-end',
 
   /* to Server */
   login = 'login',
@@ -63,11 +64,18 @@ export const message = async(ws: ws, id: string, wsData: string) => {
 
       room.map[y][x] = color;
       room.turn = room.turn.id === room.user1.id ? room.user2 : room.user1;
-      
+
       room.send(eventName.clicked, {
         y,
         x,
         color,
+      });
+
+      const win = room.checkWin();
+      if (!win) return;
+
+      room.send(eventName.gameEnd, {
+        winner: win,
       });
 
       break;

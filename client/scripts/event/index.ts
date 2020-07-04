@@ -45,22 +45,20 @@ export const message = async(wsData: any) => {
       (<HTMLImageElement>userElements[0].getElementsByTagName('span')[0]).innerText = room.user1.username;
       (<HTMLImageElement>userElements[1].getElementsByTagName('span')[0]).innerText = room.user2.username;
 
+      (<HTMLImageElement>userElements[0].getElementsByTagName('span')[0]).innerText += '  🎲';
+
       await new Promise(r => setTimeout(r, 1400))
       document.getElementById('start').classList.add('shake-out');
 
       await new Promise(r => setTimeout(r, 530));
       canvas.init();
 
-
-      
       break;
     }
     case eventName.setUser: {
       const user = new User(response.data.id, response.data.username, response.data.profile_img);
       data.user = user;
 
-  
-      
       break;
     }
     case eventName.clicked: {
@@ -68,6 +66,16 @@ export const message = async(wsData: any) => {
 
 
       data.room.turn = data.room.user1.id === data.room.turn.id ? data.room.user2 : data.room.user1;
+
+      const userElements = document.getElementById('users').getElementsByTagName('div');
+
+      if (data.room.turn.id === data.room.user1.id) {
+        (<HTMLImageElement>userElements[1].getElementsByTagName('span')[0]).innerText = data.room.user2.username;
+        (<HTMLImageElement>userElements[0].getElementsByTagName('span')[0]).innerText += '  🎲';
+      } else {
+        (<HTMLImageElement>userElements[0].getElementsByTagName('span')[0]).innerText = data.room.user1.username;
+        (<HTMLImageElement>userElements[1].getElementsByTagName('span')[0]).innerText += '  🎲';
+      }
 
       data.room.map[y][x] = color;
       canvas.draw();

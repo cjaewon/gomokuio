@@ -114,7 +114,7 @@ form {
         margin: 0.425rem 0.5rem 0 0.5rem;
         padding: 0.25rem;
         border-radius: 4px;
-        background-color: white;
+        background-color: var(--bg-color);
         font-size: 1.125rem;
         font-weight: 500;
 
@@ -123,8 +123,8 @@ form {
         }
 
         & > img {
-          width: 2.75rem;
-          border: 3px solid white ;
+          width: 2.5rem;
+          border: 3px solid var(--white);
           border-radius: 50%;
           object-fit: cover;
         }

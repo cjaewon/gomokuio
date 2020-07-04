@@ -109,6 +109,8 @@ export const close = async(id: string) => {
   if (user.roomID) {
     const room = rooms[user.roomID];
 
+    if (!room) return;
+
     if (room.user1.id === id) room.user2.send(eventName.quit, {});
     else room.user1.send(eventName.quit, {});
   

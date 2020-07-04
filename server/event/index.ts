@@ -20,6 +20,7 @@ const enum eventName {
   quit = 'quit',
   newChat = 'new-chat',
   gameEnd = 'game-end',
+  info = 'info',
 
   /* to Server */
   login = 'login',
@@ -117,3 +118,16 @@ export const close = async(id: string) => {
   log.info(`Player ${id} quit`);
   delete users[id];
 };
+
+
+// setInterval(() => {
+  
+  
+//   for (const [key, user] of Object.entries(users)) {
+//     if (user.roomID) continue;
+
+//     user.send(eventName.info, {
+//       info: 
+//     })
+//   }
+// }, 2500);

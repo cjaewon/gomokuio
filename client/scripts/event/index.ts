@@ -16,6 +16,7 @@ export const enum eventName {
   quit = 'quit',
   newChat = 'new-chat',
   gameEnd = 'game-end',
+  info = 'info',
 
   /* to Server */
   login = 'login',

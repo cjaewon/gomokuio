@@ -55,7 +55,6 @@ export const message = async(wsData: any) => {
 
       await new Promise(r => setTimeout(r, 530));
       canvas.init();
-
       break;
     }
     case eventName.setUser: {
@@ -109,7 +108,17 @@ export const message = async(wsData: any) => {
     }
     case eventName.quit: {
       toast.error('상대편 플레이어가 게임을 나갔습니다.');
-      
+
+      await new Promise(r => setTimeout(r, 3000));
+
+      const button = <HTMLButtonElement>document.getElementById('username-button');
+
+      canvas.uninit();
+      document.getElementById('start').classList.remove('shake-out');
+      document.getElementById('chat-list').innerHTML = '';
+      button.disabled = false;
+      button.innerText = '플레이';
+
       break;
     }
     case eventName.gameEnd: {
@@ -119,7 +128,18 @@ export const message = async(wsData: any) => {
         toast.success('🎉 게임을 승리하셨습니다!');
       else
         toast.error('😔 게임에 패배하셨습니다...');
-      
+
+      await new Promise(r => setTimeout(r, 3000));
+
+      const button = <HTMLButtonElement>document.getElementById('username-button');
+
+      canvas.uninit();
+      document.getElementById('start').classList.remove('shake-out');
+      document.getElementById('chat-list').innerHTML = '';
+      button.disabled = false;
+      button.innerText = '플레이';
+
+      break;
     }
   }
 }

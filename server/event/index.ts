@@ -4,7 +4,7 @@ import { users, rooms } from '../data';
 import { matchUser } from '../lib/system';
 
 import User from '../entity/User';
-import Room from '../entity/Room';
+// import Room from '../entity/Room';
 import log from '../lib/logger';
 
 const enum gomokuColor {

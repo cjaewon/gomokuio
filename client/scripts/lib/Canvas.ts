@@ -31,6 +31,12 @@ export default class Canvas {
     this.catchEvent();
   }
 
+  uninit() {
+    this.display(false);
+    data.room = null;
+    data.user = null;
+  }
+
   display(bool: boolean = true) {
     const gameElement = document.getElementById('game');
     gameElement.style.display = bool ? 'flex' : 'none';

@@ -18,10 +18,12 @@ const enum eventName {
   setUser = 'set-user',
   clicked = 'clicked',
   quit = 'quit',
+  newChat = 'new-chat',
 
   /* to Server */
   login = 'login',
   click = 'click',
+  sendMsg = 'send-msg',
 }
 
 type Response = {
@@ -67,6 +69,26 @@ export const message = async(ws: ws, id: string, wsData: string) => {
         x,
         color,
       });
+
+      break;
+    }
+    case eventName.sendMsg: {
+      const { text } = response.data;
+
+      if (text.length > 50) return;
+
+      const user = users[id];
+      if (!user || !user.roomID) return;
+
+      const room = rooms[user.roomID];
+      if (!room) return;
+
+      room.send(eventName.newChat, {
+        id,
+        text,
+      });
+
+      break;
     }
   }
 };

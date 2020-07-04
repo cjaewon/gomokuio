@@ -8,6 +8,7 @@ import './lib/theme';
 import { ws, canvas } from './data';
 import { wsSend } from './lib';
 import { eventName, message } from './event';
+import * as toast from './lib/toast';
 
 // will remove
 // document.getElementById('start').style.display = 'none';
@@ -47,6 +48,20 @@ document.getElementById('theme-switch').addEventListener('click', async e => {
     await new Promise(r=>setTimeout(r, 1000));
 
     document.body.style.transition = '';
+  }
+});
+
+document.getElementById('chat-input')!.addEventListener('keydown', e => {
+  if (e.keyCode === 13) {
+    const text = (<HTMLInputElement>document.getElementById('chat-input')).value;
+    (<HTMLInputElement>document.getElementById('chat-input')).value = '';
+
+    if (text.trim().length === 0) return;
+    if (text.length > 50) return toast.error('텍스트가 너무 길어요.');
+
+    wsSend(eventName.sendMsg, {
+      text,
+    });
   }
 });
 

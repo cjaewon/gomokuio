@@ -14,10 +14,12 @@ export const enum eventName {
   setUser = 'set-user',
   clicked = 'clicked',
   quit = 'quit',
-  
+  newChat = 'new-chat',
+
   /* to Server */
   login = 'login',
   click = 'click',
+  sendMsg = 'send-msg',
 }
 
 type Response = {
@@ -64,7 +66,6 @@ export const message = async(wsData: any) => {
     case eventName.clicked: {
       const { x, y, color } = response.data;
 
-
       data.room.turn = data.room.user1.id === data.room.turn.id ? data.room.user2 : data.room.user1;
 
       const userElements = document.getElementById('users').getElementsByTagName('div');
@@ -79,6 +80,29 @@ export const message = async(wsData: any) => {
 
       data.room.map[y][x] = color;
       canvas.draw();
+
+      break;
+    }
+    case eventName.newChat: {
+      const { id, text } = response.data;
+      const { room } = data;
+
+      const chatListElement = document.getElementById('chat-list');
+      const lastChildElement = (<HTMLDivElement>chatListElement.lastElementChild);
+
+      if (lastChildElement.getAttribute('user-id') === id) {
+        (<HTMLSpanElement>lastChildElement.getElementsByTagName('span')[0]).innerHTML += `<br />${text}`;
+      } else {
+        document.getElementById('chat-list').innerHTML += 
+        `
+        <div class="chat" user-id="${id}">
+          <img src="${id === room.user1.id ? room.user1.profile_img : room.user2.profile_img}" />
+          <span>${text}<span>
+        </div>
+        `;
+      }
+
+      chatListElement.scrollTop = chatListElement.scrollHeight;
 
       break;
     }

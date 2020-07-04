@@ -43,6 +43,7 @@ form {
   & > input {
     width: 70%;
     font-size: 1.25rem;
+    margin-top: 0.5rem;
   }
 
   & > button {
@@ -128,6 +129,48 @@ form {
           border-radius: 50%;
           object-fit: cover;
         }
+      }
+
+    }
+
+    & > #chats {
+      margin: 0.425rem 0.5rem 0 0.5rem;
+      background-color: var(--bg-color);
+      height: 585px;
+      border-radius: 4px;
+      
+      & > #chat-list {
+        height: 94%;
+        overflow: auto;
+
+        & > .chat {
+          padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+          border-bottom: 2px solid #E2E8F0;
+          display: flex;
+          align-items: center;
+          
+          & > img {
+            width: 1.5rem;
+            border: 2.5px solid var(--white);
+            border-radius: 50%;
+            object-fit: cover;
+          }
+  
+          & > span {
+            position: relative;
+            left: 25px;
+          }
+        }
+      }
+ 
+
+      & > input {
+        height: 6%;
+        width: 100%;
+
+        border-bottom: 0;
+        border-left: 0;
+        border-right: 0;
       }
 
     }

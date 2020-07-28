@@ -57,6 +57,9 @@ export const message = async(wsData: any) => {
 
       await new Promise(r => setTimeout(r, 530));
       canvas.init();
+
+      toast.success(`${room.user1.username} vs ${room.user2.username}`);
+      // 나중에 클라이언트도 점수 동기화
       break;
     }
     case eventName.setUser: {

@@ -1,7 +1,7 @@
 import ws from 'ws';
 
 import { users, rooms } from '../data';
-import { matchUser } from '../lib/system';
+import { matchUser, updateRanking } from '../lib/system';
 
 import User from '../entity/User';
 // import Room from '../entity/Room';
@@ -12,7 +12,7 @@ const enum gomokuColor {
   white = 2,
 }
 
-const enum eventName {
+export const enum eventName {
   /* to Client */
   matched = 'matched',
   setUser = 'set-user',
@@ -21,6 +21,7 @@ const enum eventName {
   newChat = 'new-chat',
   gameEnd = 'game-end',
   info = 'info',
+  ranking = 'ranking',
 
   /* to Server */
   login = 'login',
@@ -45,6 +46,9 @@ export const message = async(ws: ws, id: string, wsData: string) => {
       const room = matchUser(user);
 
       log.info(`Player ${id} joined`);
+
+      updateRanking();
+
       if (!room) return;
 
       room.user1.roomID = room.id;
@@ -79,6 +83,10 @@ export const message = async(ws: ws, id: string, wsData: string) => {
         winner: win,
       });
 
+      room[win].score += 25;
+
+      updateRanking();
+
       break;
     }
     case eventName.sendMsg: {
@@ -111,7 +119,7 @@ export const close = async(id: string) => {
 
     if (!room) return;
 
-    if (room.user1.id === id) room.user2.send(eventName.quit, {});
+    if (room.user1 && room.user1.id === id) room.user2.send(eventName.quit, {});
     else room.user1.send(eventName.quit, {});
   
     delete rooms[user.roomID];
@@ -119,6 +127,8 @@ export const close = async(id: string) => {
 
   log.info(`Player ${id} quit`);
   delete users[id];
+
+  updateRanking();
 };
 
 

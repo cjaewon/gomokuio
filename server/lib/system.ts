@@ -3,7 +3,7 @@ import { users, matchQueue } from '../data';
 import User from "../entity/User";
 import Room from '../entity/Room';
 import { uuid4 } from './uuid';
-
+import { eventName } from '../event';
 
 export const matchUser = (user: User) => {
   if (matchQueue.length === 0) {
@@ -122,5 +122,17 @@ export const checkWin = (map: number[][]) => {
 
     y++;
     x++;
+  }
+};
+
+export const updateRanking = async() => {
+  let ranking = Object.entries(users);
+  // console.log(ranking, users);
+  ranking.sort((a, b) => a[1].score > b[1].score ? 1 : 0);
+  ranking.slice(0, 5);
+  ranking = ranking.map(user => user[1].toObject()) as any
+
+  for(const [key, user] of Object.entries(users)) {
+    user.send(eventName.ranking, ranking);
   }
 };

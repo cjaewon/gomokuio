@@ -1,6 +1,3 @@
-import '../styles/global.scss';
-import '../styles/animation.scss';
-import '../styles/common.scss';
 import '../styles/style.scss';
 
 import './lib/theme';
@@ -36,16 +33,16 @@ document.getElementById('theme-switch').addEventListener('click', async e => {
     localStorage.setItem('theme', 'dark');
     document.body.classList.add('dark');
 
-    document.body.style.transition = 'all 1s';
-    await new Promise(r=>setTimeout(r, 1000));
+    document.body.style.transition = 'all 0.75s ease';
+    await new Promise(r=>setTimeout(r, 749));
 
     document.body.style.transition = '';
   } else {
     localStorage.setItem('theme', 'light');
     document.body.classList.remove('dark');
 
-    document.body.style.transition = 'all 1s ease';
-    await new Promise(r=>setTimeout(r, 1000));
+    document.body.style.transition = 'all 0.75s ease';
+    await new Promise(r=>setTimeout(r, 749));
 
     document.body.style.transition = '';
   }

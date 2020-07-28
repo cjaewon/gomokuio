@@ -17,6 +17,7 @@ export const enum eventName {
   newChat = 'new-chat',
   gameEnd = 'game-end',
   info = 'info',
+  ranking = 'ranking',
 
   /* to Server */
   login = 'login',
@@ -140,6 +141,21 @@ export const message = async(wsData: any) => {
       button.disabled = false;
       button.innerText = '플레이';
 
+      break;
+    }
+    case eventName.ranking: {
+      // vs 기능 넣어주기
+      const ranking = response.data as User[];
+
+      document.getElementById('ranking-list').innerHTML = `
+        ${ranking.map((user, rank) => `
+          <tr>
+            <td>${rank + 1}</td>
+            <td>${user.username}</td>
+            <td>${user.score}</td>
+          </tr>
+        `).join('')}
+      `;
       break;
     }
   }

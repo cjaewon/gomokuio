@@ -8,6 +8,7 @@ export default class User {
   username: string;
   roomID: string | null;
   profile_img: string;
+  score: number;
 
   constructor(ws: ws, id: string, username: string) {
     this.ws = ws;
@@ -15,6 +16,7 @@ export default class User {
     this.username = username;
     this.roomID = null;
     this.profile_img  = `https://www.gravatar.com/avatar/${createHash('md5').update(username).digest('hex')}?s=64&d=retro`;
+    this.score = 0;
   }
 
   send(name: string, data: Object) {

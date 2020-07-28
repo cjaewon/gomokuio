@@ -11,7 +11,7 @@
     "start": "node server-dist/app.js",
     "parcel": "parcel client/index.html",
     "parcel:watch": "parcel watch client/index.html",
-    "build": "parcel build client/index.html && tsc -p server", 
+    "build": "parcel build client/index.html --no-source-maps && tsc -p server", 
     "server": "node server-dist/app.js",
     "server:build": "tsc -p server",
     "server:dev": "yarn server:build && yarn server"

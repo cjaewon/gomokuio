@@ -128,9 +128,9 @@ export const checkWin = (map: number[][]) => {
 export const updateRanking = async() => {
   let ranking = Object.entries(users);
   // console.log(ranking, users);
-  ranking.sort((a, b) => a[1].score > b[1].score ? 1 : 0);
+  ranking.sort((a, b) => b[1].score - a[1].score);
   ranking.slice(0, 5);
-  ranking = ranking.map(user => user[1].toObject()) as any
+  ranking = ranking.map(user => user[1].toObject()) as any;
 
   for(const [key, user] of Object.entries(users)) {
     user.send(eventName.ranking, ranking);

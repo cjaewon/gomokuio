@@ -7,7 +7,7 @@ import path from 'path';
 import log from './lib/logger';
 import { message, close } from './event';
 import { uuid4 } from './lib/uuid';
-import { updateRanking } from './lib/system';
+
 const app = new Koa();
 
 const server = http.createServer(app.callback());

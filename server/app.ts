@@ -22,5 +22,5 @@ wss.on('connection', ws => {
 });
 
 server.listen(process.env.PORT || 3000, () => {
-  log.info('Server listening on port 3000');
+  log.info(`Server listening on port ${process.env.PORT || 3000}`);
 });

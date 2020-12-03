@@ -1,6 +1,7 @@
-import data, { ws } from '../data';
+import socket from './socket';
 
 export const wsSend = (name: string, data: Object) => {
-  const string = JSON.stringify({ name, data });
-  ws.send(string);
+  const request = { name, data };
+
+  socket.next(request);
 }

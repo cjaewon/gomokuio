@@ -2,13 +2,15 @@ import data, { canvas } from '../data';
 import * as toast from '../lib/toast';
 import Room from "../entity/Room";
 import User from '../entity/User';
+import socket from '../lib/socket';
+import { map, tap } from 'rxjs/operators';
 
 export const enum gomokuColor {
   black = 1,
   white = 2,
 }
 
-export const enum eventName {
+export const enum event {
   /* to Client */
   matched = 'matched',
   setUser = 'set-user',
@@ -26,15 +28,13 @@ export const enum eventName {
 }
 
 type Response = {
-  name: eventName;
+  name: event;
   data: any; 
-}
+};
 
-export const message = async(wsData: any) => {
-  const response: Response = JSON.parse(wsData);
-
+const onMessage = async(response: Response) => {
   switch (response.name) {
-    case eventName.matched: {
+    case event.matched: {
       const room = new Room(response.data.id, response.data.user1, response.data.user2);
       const button = <HTMLButtonElement>document.getElementById('username-button');
 
@@ -61,13 +61,13 @@ export const message = async(wsData: any) => {
       // 나중에 클라이언트도 점수 동기화
       break;
     }
-    case eventName.setUser: {
+    case event.setUser: {
       const user = new User(response.data.id, response.data.username, response.data.profile_img);
       data.user = user;
 
       break;
     }
-    case eventName.clicked: {
+    case event.clicked: {
       const { x, y, color } = response.data;
 
       data.room.turn = data.room.user1.id === data.room.turn.id ? data.room.user2 : data.room.user1;
@@ -87,7 +87,7 @@ export const message = async(wsData: any) => {
 
       break;
     }
-    case eventName.newChat: {
+    case event.newChat: {
       const { id, text } = response.data;
       const { room } = data;
 
@@ -110,7 +110,7 @@ export const message = async(wsData: any) => {
 
       break;
     }
-    case eventName.quit: {
+    case event.quit: {
       toast.error('상대편 플레이어가 게임을 나갔습니다.');
 
       await new Promise(r => setTimeout(r, 3000));
@@ -125,7 +125,7 @@ export const message = async(wsData: any) => {
 
       break;
     }
-    case eventName.gameEnd: {
+    case event.gameEnd: {
       const { winner } = response.data;
 
       if (data.room[winner].id === data.user.id)
@@ -145,7 +145,7 @@ export const message = async(wsData: any) => {
 
       break;
     }
-    case eventName.ranking: {
+    case event.ranking: {
       // vs 기능 넣어주기
       const ranking = response.data as User[];
 
@@ -162,3 +162,9 @@ export const message = async(wsData: any) => {
     }
   }
 }
+
+socket
+  .pipe(
+    map((data: any) => JSON.parse(data)),
+  )
+  .subscribe(onMessage);

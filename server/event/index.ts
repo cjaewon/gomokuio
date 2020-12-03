@@ -1,6 +1,6 @@
 import ws from 'ws';
 
-import { users, rooms } from '../data';
+import { users, rooms, matchQueue } from '../data';
 import { matchUser, updateRanking } from '../lib/system';
 
 import User from '../entity/User';
@@ -12,7 +12,7 @@ const enum gomokuColor {
   white = 2,
 }
 
-export const enum eventName {
+export const enum event {
   /* to Client */
   matched = 'matched',
   setUser = 'set-user',
@@ -38,27 +38,28 @@ export const message = async(ws: ws, id: string, wsData: string) => {
   const response: Response = JSON.parse(wsData);
 
   switch (response.name) {
-    case eventName.login: {
+    case event.login: {
       const user = new User(ws, id, response.data.username || 'Player');
-      users[id] = user;
-      user.send(eventName.setUser, user.toObject());
 
-      const room = matchUser(user);
+      users[id] = user;
+      user.send(event.setUser, user.toObject());
 
       log.info(`Player ${id} joined`);
 
       updateRanking();
 
+      const room = matchUser(user);
+
       if (!room) return;
 
       room.user1.roomID = room.id;
       room.user2.roomID = room.id;
-      room.send(eventName.matched, room.toObject());
+      room.send(event.matched, room.toObject());
 
       rooms[room.id] = room;
       break;
     }
-    case eventName.click: {
+    case event.click: {
       const user = users[id];
       const room = rooms[user.roomID!];
 
@@ -70,7 +71,7 @@ export const message = async(ws: ws, id: string, wsData: string) => {
       room.map[y][x] = color;
       room.turn = room.turn.id === room.user1.id ? room.user2 : room.user1;
 
-      room.send(eventName.clicked, {
+      room.send(event.clicked, {
         y,
         x,
         color,
@@ -79,7 +80,7 @@ export const message = async(ws: ws, id: string, wsData: string) => {
       const win = room.checkWin();
       if (!win) return;
 
-      room.send(eventName.gameEnd, {
+      room.send(event.gameEnd, {
         winner: win,
       });
 
@@ -89,7 +90,7 @@ export const message = async(ws: ws, id: string, wsData: string) => {
 
       break;
     }
-    case eventName.sendMsg: {
+    case event.sendMsg: {
       const { text } = response.data;
 
       if (text.length > 50) return;
@@ -100,7 +101,7 @@ export const message = async(ws: ws, id: string, wsData: string) => {
       const room = rooms[user.roomID];
       if (!room) return;
 
-      room.send(eventName.newChat, {
+      room.send(event.newChat, {
         id,
         text,
       });
@@ -119,8 +120,8 @@ export const close = async(id: string) => {
 
     if (!room) return;
 
-    if (room.user1 && room.user1.id === id) room.user2.send(eventName.quit, {});
-    else room.user1.send(eventName.quit, {});
+    if (room.user1 && room.user1.id === id) room.user2.send(event.quit, {});
+    else room.user1.send(event.quit, {});
   
     delete rooms[user.roomID];
   }
@@ -138,7 +139,7 @@ export const close = async(id: string) => {
 //   for (const [key, user] of Object.entries(users)) {
 //     if (user.roomID) continue;
 
-//     user.send(eventName.info, {
+//     user.send(event.info, {
 //       info: 
 //     })
 //   }

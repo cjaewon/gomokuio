@@ -3,7 +3,7 @@ import { users, matchQueue } from '../data';
 import User from "../entity/User";
 import Room from '../entity/Room';
 import { uuid4 } from './uuid';
-import { eventName } from '../event';
+import { event } from '../event';
 
 export const matchUser = (user: User) => {
   if (matchQueue.length === 0) {
@@ -133,6 +133,6 @@ export const updateRanking = async() => {
   ranking = ranking.map(user => user[1].toObject()) as any;
 
   for(const [key, user] of Object.entries(users)) {
-    user.send(eventName.ranking, ranking);
+    user.send(event.ranking, ranking);
   }
 };

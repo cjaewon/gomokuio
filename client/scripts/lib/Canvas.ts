@@ -1,4 +1,4 @@
-import { eventName, gomokuColor } from '../event';
+import { event, gomokuColor } from '../event';
 import data from '../data';
 import { wsSend } from '../lib';
 import { getTheme } from '../lib/theme';
@@ -123,7 +123,7 @@ export default class Canvas {
       if (room.turn.id !== user.id) return;
       if (data.room.map[this.y][this.x] !== 0) return;
       
-      wsSend(eventName.click, {
+      wsSend(event.click, {
         x: this.x,
         y: this.y,
       });

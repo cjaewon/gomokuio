@@ -1,11 +1,11 @@
 import '../styles/style.scss';
 import './lib/theme';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Observable } from 'rxjs';
 import { delay, filter, map, pluck, tap, throttleTime } from 'rxjs/operators';
-import { ws, canvas } from './data';
 import { wsSend } from './lib';
-import { eventName, message } from './event';
+import { event } from './event';
 import * as toast from './lib/toast';
+import socket from './lib/socket';
 
 // will remove
 // document.getElementById('start').style.display = 'none';
@@ -25,7 +25,7 @@ document.getElementsByTagName('form')[0].addEventListener('submit', async e => {
 
   button.innerText = '유저를 매칭하는 중 입니다.';
 
-  wsSend(eventName.login, { username });
+  wsSend(event.login, { username });
 });
 
 fromEvent(document.getElementById('theme-switch'), 'click')
@@ -60,7 +60,5 @@ fromEvent(document.getElementById('chat-input'), 'keydown')
     }),
   )
   .subscribe((text) => {
-    wsSend(eventName.sendMsg, { text });
+    wsSend(event.sendMsg, { text });
   });
-
-ws.onmessage = ({ data }) => message(data); 

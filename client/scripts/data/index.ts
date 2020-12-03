@@ -4,7 +4,6 @@ import User from '../entity/User';
 
 // constant
 
-export const ws: WebSocket = new WebSocket(`${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}`);
 export const canvas = new Canvas();
 
 

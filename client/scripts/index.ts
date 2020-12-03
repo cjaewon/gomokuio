@@ -1,7 +1,7 @@
 import '../styles/style.scss';
-
 import './lib/theme';
-
+import { fromEvent } from 'rxjs';
+import { delay, filter, map, pluck, tap, throttleTime } from 'rxjs/operators';
 import { ws, canvas } from './data';
 import { wsSend } from './lib';
 import { eventName, message } from './event';
@@ -28,38 +28,39 @@ document.getElementsByTagName('form')[0].addEventListener('submit', async e => {
   wsSend(eventName.login, { username });
 });
 
-document.getElementById('theme-switch').addEventListener('click', async e => {
-  if ((<HTMLInputElement>e.target).checked) { // use dark mode
-    localStorage.setItem('theme', 'dark');
-    document.body.classList.add('dark');
+fromEvent(document.getElementById('theme-switch'), 'click')
+  .pipe(
+    pluck('target', 'checked'),
+    map((checked : boolean) => checked ? 'dark' : 'light'),
+    tap(theme => {
+      localStorage.setItem('theme', theme);
 
-    document.body.style.transition = 'all 0.75s ease';
-    await new Promise(r=>setTimeout(r, 749));
+      document.body.classList.add(theme);
+      document.body.classList.remove(theme === 'dark' ? 'light' : 'dark');
+      document.body.style.transition = 'all 0.75s ease';
+    }),
+    delay(749),
+    tap(() => {
+      document.body.style.transition = '';
+    }),
+  ) 
+  .subscribe();
 
-    document.body.style.transition = '';
-  } else {
-    localStorage.setItem('theme', 'light');
-    document.body.classList.remove('dark');
+fromEvent(document.getElementById('chat-input'), 'keydown')
+  .pipe(
+    filter((e: KeyboardEvent) => e.key === 'Enter'),
+    throttleTime(500),
+    pluck('value'),
+    filter((text: string) => text.trim().length !== 0),
+    filter((text: string) => {
+      if (text.length < 50) return true;
 
-    document.body.style.transition = 'all 0.75s ease';
-    await new Promise(r=>setTimeout(r, 749));
-
-    document.body.style.transition = '';
-  }
-});
-
-document.getElementById('chat-input')!.addEventListener('keydown', e => {
-  if (e.keyCode === 13) {
-    const text = (<HTMLInputElement>document.getElementById('chat-input')).value;
-    (<HTMLInputElement>document.getElementById('chat-input')).value = '';
-
-    if (text.trim().length === 0) return;
-    if (text.length > 50) return toast.error('텍스트가 너무 길어요.');
-
-    wsSend(eventName.sendMsg, {
-      text,
-    });
-  }
-});
+      toast.error('텍스트가 너무 길어요.');
+      return false;
+    }),
+  )
+  .subscribe((text) => {
+    wsSend(eventName.sendMsg, { text });
+  });
 
 ws.onmessage = ({ data }) => message(data); 

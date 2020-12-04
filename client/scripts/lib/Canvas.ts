@@ -2,6 +2,8 @@ import { event, gomokuColor } from '../event';
 import data from '../data';
 import { wsSend } from '../lib';
 import { getTheme } from '../lib/theme';
+import { fromEvent, Subscription } from 'rxjs';
+import { filter, map, tap } from 'rxjs/operators';
 
 export default class Canvas {
   canvas: HTMLCanvasElement;
@@ -10,6 +12,10 @@ export default class Canvas {
   height: number;
   y:number;
   x: number;
+  subscriptions: { 
+    mousemoveSubscription: Subscription;
+    clickSubscription: Subscription;
+  };
 
   constructor() {
     this.canvas = document.getElementsByTagName('canvas')[0];
@@ -28,13 +34,16 @@ export default class Canvas {
   init() {
     this.display(true);
     this.draw();
-    this.catchEvent();
+    this.subscriptions = this.catchEvent();
   }
 
   uninit() {
     this.display(false);
+    this.subscriptions.clickSubscription.unsubscribe();
+    this.subscriptions.mousemoveSubscription.unsubscribe();
     data.room = null;
     data.user = null;
+
   }
 
   display(bool: boolean = true) {
@@ -103,31 +112,36 @@ export default class Canvas {
   catchEvent() {
     const scaleX = this.width / 15;
     const scaleY = this.height / 15;
+    
+    const mousemoveSubscription = fromEvent(this.canvas, 'mousemove')
+      .pipe(
+        // 순수 함수여야 하는데 이렇게 해도 되는지 모르겠다.
+        filter(() => data.room.turn.id === data.user.id),
+        map((e: MouseEvent) => {
+          return { mouseX: e.clientX - this.canvas.offsetLeft, mouseY: e.clientY - this.canvas.offsetTop };
+        }),
+        tap(({ mouseX, mouseY }) => {
+          this.x =  Math.abs(Math.round(mouseX / scaleX));
+          this.y = Math.abs(Math.round(mouseY / scaleY));
+        })
+      )
+      .subscribe(() => this.draw());
 
-    this.canvas.addEventListener('mousemove', e => {
-      const { room, user } = data;
-      if (room.turn.id !== user.id) return;
-
-      const mouseX = e.clientX - this.canvas.offsetLeft;
-      const mouseY = e.clientY - this.canvas.offsetTop;
-
-      this.x = Math.abs(Math.round(mouseX / scaleX));
-      this.y = Math.abs(Math.round(mouseY / scaleY));
-
-      this.draw();
-    }, false);
-
-    this.canvas.addEventListener('click', () => {
-      const { room, user } = data;
-
-      if (room.turn.id !== user.id) return;
-      if (data.room.map[this.y][this.x] !== 0) return;
-      
-      wsSend(event.click, {
-        x: this.x,
-        y: this.y,
-      });
-    });
+    const clickSubscription = fromEvent(this.canvas, 'click')
+      .pipe(
+        filter(() => data.room.turn.id === data.user.id),
+        filter(() => data.room.map[this.y][this.x] === 0),
+      )
+      .subscribe(() => 
+        wsSend(event.click, {
+          x: this.x,
+          y: this.y
+        })
+      );
+    
+    return {
+      mousemoveSubscription,
+      clickSubscription,
+    };
   }
-
 }

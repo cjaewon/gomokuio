@@ -130,5 +130,4 @@ export default class Canvas {
     });
   }
 
-
 }

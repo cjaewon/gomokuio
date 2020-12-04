@@ -3,7 +3,6 @@ import * as toast from '../lib/toast';
 import Room from "../entity/Room";
 import User from '../entity/User';
 import socket from '../lib/socket';
-import { map, tap } from 'rxjs/operators';
 
 export const enum gomokuColor {
   black = 1,
@@ -164,7 +163,7 @@ const onMessage = async(response: Response) => {
 }
 
 socket
-  .pipe(
-    map((data: any) => JSON.parse(data)),
-  )
-  .subscribe(onMessage);
+  .subscribe({
+    next: (value: any) => onMessage(value),
+    complete: () => console.log('completed')
+  });

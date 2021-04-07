@@ -130,16 +130,3 @@ export const close = async(id: string) => {
 
   updateRanking();
 };
-
-
-// setInterval(() => {
-  
-  
-//   for (const [key, user] of Object.entries(users)) {
-//     if (user.roomID) continue;
-
-//     user.send(eventName.info, {
-//       info: 
-//     })
-//   }
-// }, 2500);

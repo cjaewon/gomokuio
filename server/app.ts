@@ -17,7 +17,7 @@ app.use(serve(path.resolve(__dirname, '../dist')));
 wss.on('connection', ws => {
   const id = uuid4();
 
-  ws.on('message', data => message(ws, id, <string>data));
+  ws.on('message', data => message(ws, id, (data as string)));
   ws.on('close', () => close(id));
 });
 

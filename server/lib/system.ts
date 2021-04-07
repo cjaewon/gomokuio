@@ -1,23 +1,24 @@
 
-import { users, matchQueue } from '../data';
 import User from "../entity/User";
 import Room from '../entity/Room';
 import { uuid4 } from './uuid';
 import { eventName } from '../event';
+import queue from "../data/Queue";
+import users from "../data/Users";
 
 export const matchUser = (user: User) => {
-  if (matchQueue.length === 0) {
-    matchQueue.push(user);
+  if (queue.length === 0) {
+    queue.pushUser(user);
     return undefined;
   }
 
-  let otherUser: User | undefined;
+  let otherUser: User | null = null;
 
-  while (matchQueue.length) {
-    otherUser = matchQueue.shift()!;
-    if (users[otherUser.id]) break; // 플레이어가 안 나갔는지 확인
+  while (queue.length) {
+    otherUser = queue.popUser()!;
+    if (users.getUser(otherUser.id)) break; // 플레이어가 안 나갔는지 확인
 
-    otherUser = undefined;
+    otherUser = null;
   }
 
   if (!otherUser) return undefined;
@@ -132,7 +133,7 @@ export const updateRanking = async() => {
   ranking.slice(0, 5);
   ranking = ranking.map(user => user[1].toObject()) as any;
 
-  for(const [key, user] of Object.entries(users)) {
+  for(const [, user] of Object.entries(users)) {
     user.send(eventName.ranking, ranking);
   }
 };

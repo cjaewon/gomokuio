@@ -5,8 +5,8 @@ import { matchUser, updateRanking } from '../lib/system';
 import User from '../entity/User';
 
 import log from '../lib/logger';
-import users from '../data/users';
-import rooms from '../data/rooms';
+import users from '../data/Users';
+import rooms from '../data/Rooms';
 
 const enum gomokuColor {
   black = 1,

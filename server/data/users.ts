@@ -1,7 +1,7 @@
 import User from "../entity/User";
 
 class Users {
-  private store: { [x: string]: User }
+  private store: { [id: string]: User }
   
   constructor() {
     this.store = {};
@@ -11,8 +11,12 @@ class Users {
     this.store[user.id] = user;
   }
 
-  removeUser(user: User) {
-    delete this.store[user.id];
+  getUser(id: string) {
+    return this.store[id];
+  }
+
+  removeUser(id: string) {
+    delete this.store[id];
   }
 }
 

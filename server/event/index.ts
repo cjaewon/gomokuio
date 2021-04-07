@@ -1,11 +1,12 @@
 import ws from 'ws';
 
-import { users, rooms } from '../data';
 import { matchUser, updateRanking } from '../lib/system';
 
 import User from '../entity/User';
-// import Room from '../entity/Room';
+
 import log from '../lib/logger';
+import users from '../data/users';
+import rooms from '../data/rooms';
 
 const enum gomokuColor {
   black = 1,
@@ -40,7 +41,8 @@ export const message = async(ws: ws, id: string, wsData: string) => {
   switch (response.name) {
     case eventName.login: {
       const user = new User(ws, id, response.data.username || 'Player');
-      users[id] = user;
+
+      users.addUser(user);
       user.send(eventName.setUser, user.toObject());
 
       const room = matchUser(user);
@@ -55,12 +57,14 @@ export const message = async(ws: ws, id: string, wsData: string) => {
       room.user2.roomID = room.id;
       room.send(eventName.matched, room.toObject());
 
-      rooms[room.id] = room;
+      rooms.addRoom(room);
       break;
     }
     case eventName.click: {
-      const user = users[id];
-      const room = rooms[user.roomID!];
+      const user = users.getUser(id);
+      const room = rooms.getRoom(user.roomID || "");
+
+      if (!user || !room) return;
 
       const color = room.turn.id === room.user1.id ? gomokuColor.black : gomokuColor.white 
       const { y, x } = response.data;
@@ -94,10 +98,10 @@ export const message = async(ws: ws, id: string, wsData: string) => {
 
       if (text.length > 50) return;
 
-      const user = users[id];
+      const user = users.getUser(id);
       if (!user || !user.roomID) return;
 
-      const room = rooms[user.roomID];
+      const room = users.getUser(user.roomID);
       if (!room) return;
 
       room.send(eventName.newChat, {
@@ -111,22 +115,22 @@ export const message = async(ws: ws, id: string, wsData: string) => {
 };
 
 export const close = async(id: string) => {
-  const user = users[id];
+  const user = users.getUser(id);
   if (!user) return;
 
   if (user.roomID) {
-    const room = rooms[user.roomID];
+    const room = rooms.getRoom(user.roomID);
 
     if (!room) return;
 
     if (room.user1 && room.user1.id === id) room.user2.send(eventName.quit, {});
     else room.user1.send(eventName.quit, {});
   
-    delete rooms[user.roomID];
+    rooms.removeRoom(room.id);
   }
 
   log.info(`Player ${id} quit`);
-  delete users[id];
+  users.removeUser(id);
 
   updateRanking();
 };

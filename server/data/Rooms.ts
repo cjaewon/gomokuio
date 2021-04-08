@@ -1,7 +1,7 @@
 import Room from "../entity/Room";
 
 class Rooms {
-  private store: { [id: string]: Room };
+  store: { [id: string]: Room };
 
   constructor() {
     this.store = {};

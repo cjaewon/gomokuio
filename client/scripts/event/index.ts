@@ -3,12 +3,12 @@ import * as toast from '../lib/toast';
 import Room from "../entity/Room";
 import User from '../entity/User';
 
-export const enum gomokuColor {
+export enum gomokuColor {
   black = 1,
   white = 2,
 }
 
-export const enum eventName {
+export enum eventName {
   /* to Client */
   matched = 'matched',
   setUser = 'set-user',

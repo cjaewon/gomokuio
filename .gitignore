@@ -102,3 +102,5 @@ server-dist
 
 # TernJS port file
 .tern-port
+
+.parcel-cache

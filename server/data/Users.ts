@@ -1,7 +1,7 @@
 import User from "../entity/User";
 
 class Users {
-  private store: { [id: string]: User }
+  store: { [id: string]: User }
   
   constructor() {
     this.store = {};

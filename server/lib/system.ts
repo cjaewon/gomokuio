@@ -127,13 +127,14 @@ export const checkWin = (map: number[][]) => {
 };
 
 export const updateRanking = async() => {
-  let ranking = Object.entries(users);
-  // console.log(ranking, users);
+  let ranking = Object.entries(users.store);
+
   ranking.sort((a, b) => b[1].score - a[1].score);
   ranking.slice(0, 5);
+
   ranking = ranking.map(user => user[1].toObject()) as any;
 
-  for(const [, user] of Object.entries(users)) {
+  for(const [, user] of Object.entries(users.store)) {
     user.send(eventName.ranking, ranking);
   }
 };

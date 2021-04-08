@@ -6,6 +6,7 @@ dependencies:
   toastify-js: 1.10.0
   ws: 7.4.4
 devDependencies:
+  '@parcel/transformer-sass': 2.0.0-beta.2
   '@types/koa': 2.13.1
   '@types/koa-static': 4.0.1
   '@types/pino': 6.3.6
@@ -1377,7 +1378,6 @@ packages:
   /@parcel/plugin/2.0.0-beta.2:
     dependencies:
       '@parcel/types': 2.0.0-beta.2
-    dev: false
     engines:
       node: '>= 12.0.0'
     resolution:
@@ -1479,7 +1479,6 @@ packages:
     dependencies:
       node-addon-api: 3.1.0
       node-gyp-build: 4.2.3
-    dev: false
     engines:
       node: ^12.18.3 || >=14
     requiresBuild: true
@@ -1638,8 +1637,18 @@ packages:
       parcel: ^2.0.0-beta.1
     resolution:
       integrity: sha512-rbkv8ZGiGqQi5KESnfWPFsUbrkCmrZLji3brJ9GSgrK+sUSUReme3hWk7DPlLipAMng+mIR8KxGzvT+eM0JFww==
+  /@parcel/transformer-sass/2.0.0-beta.2:
+    dependencies:
+      '@parcel/plugin': 2.0.0-beta.2
+      '@parcel/source-map': 2.0.0-alpha.4.21
+      sass: 1.32.8
+    dev: true
+    engines:
+      node: '>= 12.0.0'
+      parcel: ^2.0.0-beta.1
+    resolution:
+      integrity: sha512-xJ21lbkSqq8p0+o6BMwE7BcyTmxq54QUW92KybdE5oP2Cc8DhP7vS/AdWsbl9L+6Gzf41SYIze8JCO+i5Ls6Rg==
   /@parcel/types/2.0.0-beta.2:
-    dev: false
     resolution:
       integrity: sha512-ri2BPGAFDntQbA5p3m/4QgnEqWYToUMkAtLelXSPbwnTM0KARavTAwSRqz1xwTdXa8gQyv4SSV7xURwaPaZ3GA==
   /@parcel/utils/2.0.0-beta.2:
@@ -4761,7 +4770,6 @@ packages:
     resolution:
       integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
   /node-addon-api/3.1.0:
-    dev: false
     resolution:
       integrity: sha512-flmrDNB06LIl5lywUz7YlNGZH/5p0M7W28k8hzd9Lshtdh1wshD2Y+U4h9LD6KObOy1f+fEVdgprPrEymjM5uw==
   /node-forge/0.10.0:
@@ -4771,7 +4779,6 @@ packages:
     resolution:
       integrity: sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA==
   /node-gyp-build/4.2.3:
-    dev: false
     hasBin: true
     resolution:
       integrity: sha512-MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==
@@ -6803,6 +6810,7 @@ packages:
     resolution:
       integrity: sha512-faQrqNMzcPCHGVC2aaOINk13K+aaBDUPjGWl0teOXywElLjyVAB6Oe2jj62jHYtwsU49jXhScYbvPENK+6zAvQ==
 specifiers:
+  '@parcel/transformer-sass': 2.0.0-beta.2
   '@types/koa': ^2.11.3
   '@types/koa-static': ^4.0.1
   '@types/pino': ^6.3.0

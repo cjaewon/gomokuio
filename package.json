@@ -2,7 +2,6 @@
   "name": "gomokuio",
   "version": "2.0.0",
   "description": "gomokuio webgame",
-  "main": "index.js",
   "repository": "https://github.com/cjaewon/gomokuio.git",
   "author": "cjaewon <jwn4492@outlook.com>",
   "license": "MIT",
@@ -17,6 +16,7 @@
     "server:dev": "yarn server:build && yarn server"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "2.0.0-beta.2",
     "@types/koa": "^2.11.3",
     "@types/koa-static": "^4.0.1",
     "@types/pino": "^6.3.0",
@@ -31,5 +31,8 @@
     "pino": "^6.3.2",
     "toastify-js": "^1.8.0",
     "ws": "^7.3.0"
-  }
+  },
+  "browserslist": [
+    "last 1 Chrome version"
+  ]
 }
